@@ -10,4 +10,4 @@
 <h3> ⚒️TECH STACK⚒️</h3>
 
 
-<code><img height="25" img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white"/></a><code><img height="25" img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/></a>
+<code><img height="25" img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/></a></code>

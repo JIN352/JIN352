@@ -47,9 +47,9 @@ for number in range(5):
         alert = driver.switch_to.alert
         alert.accept()
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div/select'
-        element = Select(driver.find_element(By.XPATH, xpath))
+        element = Select(driver.find_element(By.XPATH, xpath)).getattribute('value')
         element.select_by_value('1')
-
+        element = driver.find_element(By.XPATH, xpath).click()
         time.sleep(10)
 
     except: pass

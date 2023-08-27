@@ -21,7 +21,7 @@ element = driver.find_element(By.XPATH, xpath).click()
 
 #3.임의의 상품 선택
 print('상품페이지 이동')
-xpath = '//*[@id="store-index"]/section[3]/div[2]/div[5]/article/a'
+xpath = '//*[@id="store-index"]/section[3]/div[2]/div[6]/article/a'
 element=WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, xpath))).get_attribute('href')
 driver.get(element)
 
@@ -36,10 +36,12 @@ try:
     alert.accept()
     xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div/select'
     element = driver.find_element(By.XPATH, xpath)
-    element.select_by_value('1')
+    element.select_by_value(1)
     time.sleep(10)
 
 except: pass
+
+time.sleep(3)
 
 
 # xpath = '/html/body/div[5]/div/div/div/div/div[1]/h2'

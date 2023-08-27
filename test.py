@@ -4,11 +4,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import time
 
-driver = webdriver.Chrome()
-number=0
+options = webdriver.ChromeOptions()
+options.add_experimental_option("excludeSwitches", ["enable-logging"])
+driver = webdriver.Chrome(options=options)
+number = 0
 
 # 랜덤 상품 장바구니 담기 확인
 #1.브라우저 연결
@@ -26,9 +29,9 @@ element = driver.find_element(By.XPATH, xpath).click()
 for number in range(5):
 
     print('상품페이지 이동'+str(number))
-    itemlist = ['1244849','1297593','1502238','767440','1450530','1918219']
+    itemlist = ['1244849', '1297593', '1502238', '767440', '1450530', '1918219']
     item = random.choice(itemlist)
-    url = 'https://ohou.se/productions/'+ item
+    url = 'https://ohou.se/productions/' + item
     driver.get(url)
     xpath = '/html/body/div[1]/div'
     itemname = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, xpath))).get_attribute('production-selling-header__title__name')
@@ -44,13 +47,12 @@ for number in range(5):
         alert = driver.switch_to.alert
         alert.accept()
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div/select'
-        element = driver.find_element(By.XPATH, xpath)
+        element = Select(driver.find_element(By.XPATH, xpath))
         element.select_by_value('1')
+
         time.sleep(10)
 
     except: pass
-
-time.sleep(15)
 
 
 # xpath = '/html/body/div[5]/div/div/div/div/div[1]/h2'

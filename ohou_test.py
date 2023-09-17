@@ -34,14 +34,14 @@ def test_1():
         item = random.choice(itemlist)
         url = 'https://ohou.se/productions/' + item
         driver.get(url)
-        time.sleep(10)
-        xpath = '/html/body/div[1]/div'
-        #itemname = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, xpath))).get_attribute('production-selling-header__title__name')
-        itemname = driver.find_element(By.CLASS_NAME, 'production-selling-header__title__name-wrap')
-        baner = driver.find_element(By.CLASS_NAME, 'production-selling-header__title__brand-wrap')
-        #baner = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, xpath))).get_attribute('production-selling-header__title__brand')
-        print(str(itemname))
-        print(baner)
+        time.sleep(3)
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
+        itemname = driver.find_element(By.XPATH, xpath).text
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
+        element = driver.find_element(By.XPATH, xpath).text
+        baner = '[' + element + '] '
+        itemname = baner+itemname
+
 
         #4.장바구니 버튼 클릭
         print('장바구니버튼 클릭')
@@ -79,9 +79,9 @@ def test_1():
 
         #6.상품 확인
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li[1]/article/ul/li/article/a/div[2]/h1'
-        element = driver.find_element(By.XPATH, xpath).text()
-        print(itemname)
-        print(baner)
+        element = driver.find_element(By.XPATH, xpath).text
+        print(element)
+        #if element ==
 
 
 

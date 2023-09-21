@@ -81,8 +81,8 @@ def test_1():
         element = driver.find_element(By.XPATH, xpath).text
         print(element)
         if element == itemname:
-            str(number)
-            print(number+' pass')
+            print(type(item))
+            print(item+' Pass')
 
 
 

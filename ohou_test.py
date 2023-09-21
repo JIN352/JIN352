@@ -34,7 +34,6 @@ def test_1():
         item = random.choice(itemlist)
         url = 'https://ohou.se/productions/' + item
         driver.get(url)
-        time.sleep(3)
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
         itemname = driver.find_element(By.XPATH, xpath).text
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
@@ -47,7 +46,6 @@ def test_1():
         print('장바구니버튼 클릭')
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
         element = driver.find_element(By.XPATH, xpath).click()
-        time.sleep(3)
 
         try:
             WebDriverWait(driver, 3).until(EC.alert_is_present())
@@ -57,7 +55,6 @@ def test_1():
             element = driver.find_element(By.XPATH, xpath)
             Select(element).select_by_value('0')
             element = driver.find_element(By.XPATH, xpath).click()
-            time.sleep(3)
 
             try:
                 WebDriverWait(driver, 3).until(EC.alert_is_present())
@@ -67,21 +64,25 @@ def test_1():
                 element = driver.find_element(By.XPATH, xpath)
                 Select(element).select_by_value('0')
                 element = driver.find_element(By.XPATH, xpath).click()
-                time.sleep(3)
 
             except: pass
 
         except: pass
 
         #5.장바구니 이동
+        print('장바구니 이동')
         xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
         element = driver.find_element(By.XPATH, xpath).click()
 
         #6.상품 확인
+        print('상품 확인')
+        time.sleep(3)
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li[1]/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
         print(element)
-        #if element ==
+        if element == itemname:
+            str(number)
+            print(number+' pass')
 
 
 

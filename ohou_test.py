@@ -12,6 +12,7 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
 number = 0
+result =[]
 
 def test_1():
     # 랜덤 상품 장바구니 담기 확인
@@ -81,8 +82,9 @@ def test_1():
         element = driver.find_element(By.XPATH, xpath).text
         print(element)
         if element == itemname:
-            print(type(item))
             print(item+' Pass')
+        result = [item+'pass']
+        print(result)
 
 
 

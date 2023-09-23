@@ -47,15 +47,17 @@ def test_1():
         print('장바구니버튼 클릭')
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
         element = driver.find_element(By.XPATH, xpath).click()
+        #time.sleep(1)
 
         try:
             WebDriverWait(driver, 3).until(EC.alert_is_present())
             alert = driver.switch_to.alert
             alert.accept()
-            xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div/select'
+            xpath = '/html/body/div[5]/div/div/div/section/div/div/div[1]/select'
             element = driver.find_element(By.XPATH, xpath)
             Select(element).select_by_value('0')
-            element = driver.find_element(By.XPATH, xpath).click()
+            time.sleep(1)
+            #element = driver.find_element(By.XPATH, xpath).click()
 
             try:
                 WebDriverWait(driver, 3).until(EC.alert_is_present())
@@ -65,6 +67,18 @@ def test_1():
                 element = driver.find_element(By.XPATH, xpath)
                 Select(element).select_by_value('0')
                 element = driver.find_element(By.XPATH, xpath).click()
+
+                try:
+                    WebDriverWait(driver, 3).until(EC.alert_is_present())
+                    alert = driver.switch_to.alert
+                    alert.accept()
+                    xpath = '/html/body/div[5]/div/div/div/section/div/div/div[3]/select'
+                    element = driver.find_element(By.XPATH, xpath)
+                    Select(element).select_by_value('0')
+                    element = driver.find_element(By.XPATH, xpath).click()
+
+                except:
+                    pass
 
             except: pass
 
@@ -78,14 +92,13 @@ def test_1():
         #6.상품 확인
         print('상품 확인')
         time.sleep(3)
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li[1]/article/ul/li/article/a/div[2]/h1'
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li[' + str(number+1) +']/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
         print(element)
         if element == itemname:
             print(item+' Pass')
         result = [item+'pass']
         print(result)
-
 
 
 

@@ -12,6 +12,7 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
 result =[]
+f = open("C:/test/ohou_test_result.txt", 'w')
 
 def test_1():
     # 랜덤 상품 장바구니 담기 확인
@@ -99,6 +100,10 @@ def test_1():
         else:
             print(item+' Fail')
             result = [item+'Fail']
+
+    f.close()
+
+
 
 
 

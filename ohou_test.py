@@ -13,8 +13,12 @@ options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
 result =[]
 f = open("C:/test/ohou_test_result.txt", 'w')
+f.close()
 
 def test_1():
+    f = open("C:/test/ohou_test_result.txt", 'a')
+    f.write('OHO-1\n')
+
     # 랜덤 상품 장바구니 담기 확인
     #1.브라우저 열기
     print('브라우저 연결')
@@ -95,13 +99,18 @@ def test_1():
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
         if element == itemname:
-            print(item+' Pass')
-            result = [item+'Pass']
+            result = ['상품번호' + item + ' Pass']
         else:
-            print(item+' Fail')
-            result = [item+'Fail']
+            result = ['상품번호' + item+' Fail']
 
+        f.write(str(result))
     f.close()
+
+def test_2():
+    f = open("C:/test/ohou_test_result.txt", 'a')
+    f.write('\nOHO-2')
+    f.close()
+
 
 
 

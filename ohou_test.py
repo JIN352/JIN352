@@ -1,5 +1,4 @@
 import random
-import sys
 import time
 
 from selenium import webdriver
@@ -14,6 +13,7 @@ driver = webdriver.Chrome(options=options)
 result =[]
 f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
+
 
 def test_1():
     f = open("C:/test/ohou_test_result.txt", 'a')
@@ -30,6 +30,10 @@ def test_1():
     print('쇼핑탭 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
     element = driver.find_element(By.XPATH, xpath).click()
+    number = 0
+    xpath = '//*[@id="store-index"]/section[3]/div[2]/div['+str(number+1)+']/article/a'
+    element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+    print(element)
     itemlist = ['1244849', '1297593', '1502238', '767440', '1450530', '1918219','144229','345755']
     random.shuffle(itemlist)
 
@@ -109,6 +113,7 @@ def test_1():
 def test_2():
     f = open("C:/test/ohou_test_result.txt", 'a')
     f.write('\nOHO-2')
+
     f.close()
 
 

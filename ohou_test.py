@@ -1,4 +1,5 @@
 import random
+import re
 import time
 
 from selenium import webdriver
@@ -33,6 +34,7 @@ def test_1():
     number = 0
     xpath = '//*[@id="store-index"]/section[3]/div[2]/div['+str(number+1)+']/article/a'
     element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+    itemlist = re.findall(r'\d+', element)
     print(element)
     itemlist = ['1244849', '1297593', '1502238', '767440', '1450530', '1918219','144229','345755']
     random.shuffle(itemlist)

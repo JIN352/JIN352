@@ -30,29 +30,23 @@ def test_1():
     #2.쇼핑탭 이동
     print('쇼핑탭 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
-    element = driver.find_element(By.XPATH, xpath).click()
-    number = 0
-    xpath = '//*[@id="store-index"]/section[3]/div[2]/div['+str(number+1)+']/article/a'
-    element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
-    itemlist = re.findall(r'\d+', element)
-    print(element)
-    itemlist = ['1244849', '1297593', '1502238', '767440', '1450530', '1918219','144229','345755']
-    random.shuffle(itemlist)
+    element_url = driver.find_element(By.XPATH, xpath)
+    element_url.click()
 
     #3.임의의 상품 선택
-    for number in range(8):
+    for number in range(1, 8):
 
-        print(str(number+1)+'번 상품페이지 이동')
-        item = itemlist[number]
-        url = 'https://ohou.se/productions/' + item
-        driver.get(url)
+        print(str(number)+'번 상품페이지 이동')
+        xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
+        element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+        item = re.findall(r'\d+', element)
+        driver.get(element)
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
         itemname = driver.find_element(By.XPATH, xpath).text
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
         element = driver.find_element(By.XPATH, xpath).text
         baner = '[' + element + '] '
         itemname = baner+itemname
-        print(itemname)
 
 
         #4.장바구니 버튼 클릭
@@ -105,11 +99,13 @@ def test_1():
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
         if element == itemname:
-            result = ['상품번호' + item + ' Pass']
+            result = '[상품번호'+str(item)+' Pass]'
         else:
-            result = ['상품번호' + item+' Fail']
+            result = '[상품번호'+str(item)+' Fail]'
 
-        f.write(str(result))
+        f.write(result)
+        element_url.click()
+
     f.close()
 
 def test_2():

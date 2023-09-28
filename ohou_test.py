@@ -25,13 +25,11 @@ def test_1():
     print('브라우저 연결')
     url = 'https://ohou.se/'
     driver.get(url)
-    #driver.maximize_window()
 
     #2.쇼핑탭 이동
     print('쇼핑탭 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
-    element_url = driver.find_element(By.XPATH, xpath)
-    element_url.click()
+    element = driver.find_element(By.XPATH, xpath).click()
 
     #3.임의의 상품 선택
     for number in range(1, 8):
@@ -81,6 +79,16 @@ def test_1():
                     Select(element).select_by_value('0')
                     element = driver.find_element(By.XPATH, xpath).click()
 
+                    try:
+                        WebDriverWait(driver, 3).until(EC.alert_is_present())
+                        alert = driver.switch_to.alert
+                        alert.accept()
+                        select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/ul/li[1]/article/label/div'
+                        element = driver.find_element(By.XPATH, select_xpath).send_keys('test')
+
+                    except:
+                        pass
+
                 except:
                     pass
 
@@ -103,8 +111,9 @@ def test_1():
         else:
             result = '[상품번호'+str(item)+' Fail]'
 
+        xpath = '/html/body/div[1]/div/div/header/div/div/div/div[3]/a[2]'
+        element = driver.find_element(By.XPATH, xpath).click()
         f.write(result)
-        element_url.click()
 
     f.close()
 

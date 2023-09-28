@@ -63,7 +63,6 @@ def test_1():
 
             try:
                 WebDriverWait(driver, 3).until(EC.alert_is_present())
-                alert = driver.switch_to.alert
                 alert.accept()
                 select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = driver.find_element(By.XPATH, select_xpath)
@@ -72,7 +71,6 @@ def test_1():
 
                 try:
                     WebDriverWait(driver, 3).until(EC.alert_is_present())
-                    alert = driver.switch_to.alert
                     alert.accept()
                     select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = driver.find_element(By.XPATH, select_xpath)
@@ -81,7 +79,6 @@ def test_1():
 
                     try:
                         WebDriverWait(driver, 3).until(EC.alert_is_present())
-                        alert = driver.switch_to.alert
                         alert.accept()
                         select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/ul/li[1]/article/label/div'
                         element = driver.find_element(By.XPATH, select_xpath).send_keys('test')

@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 selenium = "*"
+pytest = "*"
+pytest-rerunfailures = "*"
 
 [dev-packages]
 

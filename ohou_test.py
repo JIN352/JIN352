@@ -228,6 +228,84 @@ def test_2():
 
     f.close()
 
+def test_3():
+    f = open("C:/test/ohou_test_result.txt", 'a')
+    f.write('\nOHO-3\n')
+    # 랜덤 상품 장바구니 담기 확인
+    # 1.브라우저 열기
+    print('브라우저 연결')
+    url = 'https://ohou.se/'
+    driver.get(url)
+
+    # 2.쇼핑탭 이동
+    print('쇼핑탭 이동')
+    xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
+    element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
+
+    #3.임의의 상품 장바구니에 담기
+    print('상품 장바구니에 담기')
+    count = random.randrange(2, 7)
+    for number in range(1, count+1):
+        xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
+        element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+        item = re.findall(r'\d+', element)
+        driver.get(element)
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
+        element = driver.find_element(By.XPATH, xpath).click()
+
+        try:
+            WebDriverWait(driver, 3).until(EC.alert_is_present())
+            alert = driver.switch_to.alert
+            alert.accept()
+            select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
+            element = driver.find_element(By.XPATH, select_xpath)
+            Select(element).select_by_value('0')
+            element = driver.find_element(By.XPATH, xpath).click()
+
+            try:
+                WebDriverWait(driver, 3).until(EC.alert_is_present())
+                alert.accept()
+                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
+                element = driver.find_element(By.XPATH, select_xpath)
+                Select(element).select_by_value('0')
+                element = driver.find_element(By.XPATH, xpath).click()
+
+                try:
+                    WebDriverWait(driver, 3).until(EC.alert_is_present())
+                    alert.accept()
+                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                    element = driver.find_element(By.XPATH, select_xpath)
+                    Select(element).select_by_value('0')
+                    element = driver.find_element(By.XPATH, xpath).click()
+
+                    try:
+                        WebDriverWait(driver, 3).until(EC.alert_is_present())
+                        alert.accept()
+                        select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/ul/li[1]/article/label/div'
+                        element = driver.find_element(By.XPATH, select_xpath).send_keys('test')
+
+                    except:
+                        pass
+
+                except:
+                    pass
+
+            except:
+                pass
+
+        except:
+            pass
+
+        item_cost = driver.find_element(By.XPATH,'//span[contains(text(),"주문금액")]').text
+        element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
+
+    #4.장바구니로 이동
+    print('장바구니 이동')
+    xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
+    element = driver.find_element(By.XPATH, xpath).click()
+
+
+    f.close()
 
 
 

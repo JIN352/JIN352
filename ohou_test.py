@@ -296,7 +296,8 @@ def test_3():
         except:
             pass
 
-        item_cost = driver.find_element(By.XPATH,'//span[contains(text(),"주문금액")]').text
+        element = driver.find_element(By.XPATH,'//span[contains(text(),"주문금액")]')
+        item_cost = element.find_element(By.XPATH,'"following-sibling::').text
         element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
 
     #4.장바구니로 이동

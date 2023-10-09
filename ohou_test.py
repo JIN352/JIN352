@@ -254,11 +254,14 @@ def test_3():
     #3.임의의 상품 장바구니에 담기
     print('상품 장바구니에 담기')
     count = random.randrange(2, 7)
+    item_costs =0
     for number in range(1, count+1):
         xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
         element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
         item = re.findall(r'\d+', element)
         driver.get(element)
+        element_s = driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
+        item_cost = element_s.text
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
         element = driver.find_element(By.XPATH, xpath).click()
 
@@ -269,6 +272,7 @@ def test_3():
             select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
             element = driver.find_element(By.XPATH, select_xpath)
             Select(element).select_by_value('0')
+            item_cost = element_s.text
             element = driver.find_element(By.XPATH, xpath).click()
 
             try:
@@ -277,6 +281,7 @@ def test_3():
                 select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = driver.find_element(By.XPATH, select_xpath)
                 Select(element).select_by_value('0')
+                item_cost = element_s.text
                 element = driver.find_element(By.XPATH, xpath).click()
 
                 try:
@@ -285,6 +290,7 @@ def test_3():
                     select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = driver.find_element(By.XPATH, select_xpath)
                     Select(element).select_by_value('0')
+                    item_cost = element_s.text
                     element = driver.find_element(By.XPATH, xpath).click()
 
                     try:
@@ -305,14 +311,21 @@ def test_3():
         except:
             pass
 
-        element = driver.find_element(By.XPATH,'//span[contains(text(),"주문금액")]')
-        item_cost = element.find_element(By.XPATH,'"following-sibling::').text
+        item_costs += int(re.sub(r'[^0-9]', '', item_cost))
         element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
 
     #4.장바구니로 이동
     print('장바구니 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
     element = driver.find_element(By.XPATH, xpath).click()
+
+    #5.총 결제 금액 확인
+    element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located(By.XPATH, '//span[contains(text(),"결제금액")]'))
+    total_cost = int(re.sub(r'[^0-9]', '', element_s.text))
+    print(element_s)
+    if item_costs == total_cost:
+        f.write('Pass\n')
+    else: f.write('False\n')
 
 
     f.close()

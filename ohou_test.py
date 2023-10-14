@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
+
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
@@ -320,12 +321,19 @@ def test_3():
     element = driver.find_element(By.XPATH, xpath).click()
 
     #5.총 결제 금액 확인
-    element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located(By.XPATH, '//span[contains(text(),"결제금액")]'))
-    total_cost = int(re.sub(r'[^0-9]', '', element_s.text))
-    print(element_s)
+    time.sleep(3)
+    element = driver.find_elements(By.CLASS_NAME,'commerce-cart__summary__row.commerce-cart__summary__row--total')[0]
+    element = element.find_element(By.XPATH,'./dd/span').get_attribute('innerText')
+    total_cost = int(re.sub(r'[^0-9]', '', element))
+    print(total_cost)
+    print(item_costs)
+    time.sleep(10)
     if item_costs == total_cost:
         f.write('Pass\n')
-    else: f.write('False\n')
+    else:
+        f.write('False\n')
+        f.write('노출금액:'+str(total_cost)+'/')
+        f.write('실제금액:'+str(item_costs))
 
 
     f.close()

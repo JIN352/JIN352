@@ -29,4 +29,16 @@ def test():
         result = '스크립트 오류' + str(e) +'\n'
     finally:
         f_m.write(result)
+
+    oho = ohou_test.test_3()
+    try:
+        if oho is False:
+            result = 'OHO-3 Fail\n'
+        else:
+            result = 'OHO-3 Pass\n'
+    except Exception as e:
+        result = '스크립트 오류' + str(e) + '\n'
+    finally:
+        f_m.write(result)
+
 f_m.close()

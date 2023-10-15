@@ -325,16 +325,14 @@ def test_3():
     element = driver.find_elements(By.CLASS_NAME,'commerce-cart__summary__row.commerce-cart__summary__row--total')[0]
     element = element.find_element(By.XPATH,'./dd/span').get_attribute('innerText')
     total_cost = int(re.sub(r'[^0-9]', '', element))
-    print(total_cost)
-    print(item_costs)
-    time.sleep(10)
-    if item_costs == total_cost:
+    element = driver.find_elements(By.XPATH,'//*[contains(text(),"총 배송비")]/../dd/span')[0].get_attribute('innerText')
+    ship_cost = int(re.sub(r'[^0-9]', '', element))
+    if (item_costs+ship_cost) == total_cost:
         f.write('Pass\n')
     else:
         f.write('False\n')
         f.write('노출금액:'+str(total_cost)+'/')
         f.write('실제금액:'+str(item_costs))
-
 
     f.close()
 

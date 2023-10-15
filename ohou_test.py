@@ -8,34 +8,30 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
-result =[]
+folder = 'C:/test/'
 f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
-
+result =[]
 
 def test_1():
     f = open("C:/test/ohou_test_result.txt", 'a')
-    f.write('\nOHO-1\n')
+    f.write('OHO-1:랜덤 상품 장바구니 담기 확인\n')
 
     # 랜덤 상품 장바구니 담기 확인
     #1.브라우저 열기
-    print('브라우저 연결')
     url = 'https://ohou.se/'
     driver.get(url)
 
     #2.쇼핑탭 이동
-    print('쇼핑탭 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
     element = driver.find_element(By.XPATH, xpath).click()
 
     #3.임의의 상품 선택
     for number in range(1, 8):
 
-        print(str(number)+'번 상품페이지 이동')
         xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
         element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
         item = re.findall(r'\d+', element)
@@ -49,12 +45,11 @@ def test_1():
 
 
         #4.장바구니 버튼 클릭
-        print('장바구니버튼 클릭')
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
         element = driver.find_element(By.XPATH, xpath).click()
 
         try:
-            WebDriverWait(driver, 3).until(EC.alert_is_present())
+            WebDriverWait(driver, 3).until(EC.alert_is_present())   #1번 필수 옵션 선택
             alert = driver.switch_to.alert
             alert.accept()
             select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
@@ -63,7 +58,7 @@ def test_1():
             element = driver.find_element(By.XPATH, xpath).click()
 
             try:
-                WebDriverWait(driver, 3).until(EC.alert_is_present())
+                WebDriverWait(driver, 3).until(EC.alert_is_present())   #2번 필수 옵션 선택
                 alert.accept()
                 select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = driver.find_element(By.XPATH, select_xpath)
@@ -71,7 +66,7 @@ def test_1():
                 element = driver.find_element(By.XPATH, xpath).click()
 
                 try:
-                    WebDriverWait(driver, 3).until(EC.alert_is_present())
+                    WebDriverWait(driver, 3).until(EC.alert_is_present())   #3번 필수 옵션 선택
                     alert.accept()
                     select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = driver.find_element(By.XPATH, select_xpath)
@@ -79,7 +74,7 @@ def test_1():
                     element = driver.find_element(By.XPATH, xpath).click()
 
                     try:
-                        WebDriverWait(driver, 3).until(EC.alert_is_present())
+                        WebDriverWait(driver, 3).until(EC.alert_is_present())   #필수 TEXT 입력
                         alert.accept()
                         select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/ul/li[1]/article/label/div'
                         element = driver.find_element(By.XPATH, select_xpath).send_keys('test')
@@ -95,34 +90,35 @@ def test_1():
         except: pass
 
         #5.장바구니 이동
-        print('장바구니 이동')
         xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
         element = driver.find_element(By.XPATH, xpath_s).click()
 
         #6.상품 확인
-        print('상품 확인')
         driver.implicitly_wait(3)
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
         if element == itemname:
-            result = '[상품번호'+str(item)+' Pass]'
+            result = ' / '+str(number)+'번 상품'+'[상품번호'+str(item)+' Pass]'
         else:
-            result = '[상품번호'+str(item)+' Fail]'
+            result = ' / '+str(number)+'번 상품'+'[상품번호'+str(item)+' Fail]'
             return False
 
         xpath = '/html/body/div[1]/div/div/header/div/div/div/div[3]/a[2]'
-        element = driver.find_element(By.XPATH, xpath).click()
+        element = driver.find_element(By.XPATH, xpath).click()  #쇼핑탭 이동
         f.write(result)
 
     f.close()
-    element = driver.find_element(By.XPATH, xpath_s).click()
-    element = driver.find_element(By.XPATH, '//button[contains(text(),"삭제")]').click()
+    element = driver.find_element(By.XPATH, xpath_s).click()    #장바구니 이동
+    element = driver.find_element(By.CLASS_NAME,'commerce-cart__content')
+    element.screenshot(folder+'OHO-1.png')     #장바구니 화면 저장
+    element = driver.find_element(By.XPATH, '//button[contains(text(),"삭제")]')      #장바구니에 담김 상품 삭제
+    element.click()
     xpath = '/html/body/div[2]/div/div/div[2]/div/button[2]'
-    element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).click()
+    element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).click() #팝업 삭제 버튼 클릭
 
 def test_2():
     f = open("C:/test/ohou_test_result.txt", 'a')
-    f.write('\nOHO-2\n')
+    f.write('\n\nOHO-2:랜덤 상품 장바구니 담기 확인\n')
     # 랜덤 상품 장바구니 담기 확인
     # 1.브라우저 열기
     print('브라우저 연결')
@@ -202,7 +198,7 @@ def test_2():
     element_s = driver.find_element(By.XPATH, xpath_s).text
     count_s = str(count)
     if count_s == element_s:
-        f.write('최초 상품 갯수' + count_s + '\n')
+        f.write('장바구니에 담은 상품 수: ' + count_s + '\n')
     else:
         f.write('Faill - 장바구니에 담긴 상품 수 확인\n')
         f.write('실제 담긴 상품 수: ' + count_s + ' / 장바구니에 표시된 숫자: ' + element_s+'\n')
@@ -219,7 +215,8 @@ def test_2():
         print(str(a)+'회')
         item_index = element[a]
         item_index.click()
-    element = driver.find_element(By.XPATH,'//button[contains(text(),"삭제")]').click()
+    element = driver.find_element(By.XPATH,'//button[contains(text(),"삭제")]')
+    element = driver.execute_script("arguments[0].click();", element)
     xpath = '/html/body/div[2]/div/div/div[2]/div/button[2]'
     element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH,xpath))).click()
 
@@ -230,17 +227,23 @@ def test_2():
     count_s = str(count-number_del)
     print(number_del)
     if count_s == element_s:
-        f.write('Pass - 삭제 후 담긴 상품 갯수' + count_s + '\n')
+        f.write('Pass\n')
+        f.write('삭제한 상품 수: '+number_del +'/장바구니에 담김 상품 수: ' + element_s)
     else:
-        f.write('Faill - 삭제 후 장바구니에 담긴 상품 수 확인\n')
-        f.write('실제 담긴 상품 수: ' + count_s + ' / 장바구니에 표시된 숫자: ' + element_s)
+        f.write('Faill\n')
+        f.write('실제 담긴 상품 수: ' + count_s + '/장바구니에 담김 상품 수: ' + element_s + '삭제한 상품 수: '+number_del)
         return False
 
     f.close()
+    time.sleep(20)
+    element = driver.find_element(By.XPATH, '//button[contains(text(),"삭제")]')  # 장바구니에 담김 상품 삭제
+    element.click()
+    xpath = '/html/body/div[2]/div/div/div[2]/div/button[2]'
+    element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).click()  # 팝업 삭제 버튼 클릭
 
 def test_3():
     f = open("C:/test/ohou_test_result.txt", 'a')
-    f.write('\nOHO-3\n')
+    f.write('\n\nOHO-3:랜덤 상품 장바구니 담기 확인\n')
     # 랜덤 상품 장바구니 담기 확인
     # 1.브라우저 열기
     print('브라우저 연결')
@@ -329,10 +332,13 @@ def test_3():
     ship_cost = int(re.sub(r'[^0-9]', '', element))
     if (item_costs+ship_cost) == total_cost:
         f.write('Pass\n')
+        f.write('노출금액:'+str(total_cost)+'/')
+        f.write('실제금액: 상품금액'+str(item_costs)+'총 배송비:')
     else:
         f.write('False\n')
         f.write('노출금액:'+str(total_cost)+'/')
-        f.write('실제금액:'+str(item_costs))
+        f.write('실제금액: (상품금액:'+str(item_costs)+'+총 배송비:'+str(ship_cost)+')')
+        return False
 
     f.close()
 

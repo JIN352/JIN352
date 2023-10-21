@@ -53,7 +53,7 @@ def test_1():
             alert = driver.switch_to.alert
             alert.accept()
             select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
-            element = driver.find_element(By.XPATH, select_xpath)
+            element = driver.find_element(By.XPATH,select_xpath)
             Select(element).select_by_value('0')
             element = driver.find_element(By.XPATH, xpath).click()
 
@@ -61,7 +61,7 @@ def test_1():
                 WebDriverWait(driver, 3).until(EC.alert_is_present())   #2번 필수 옵션 선택
                 alert.accept()
                 select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
-                element = driver.find_element(By.XPATH, select_xpath)
+                element = driver.find_element(By.XPATH,select_xpath)
                 Select(element).select_by_value('0')
                 element = driver.find_element(By.XPATH, xpath).click()
 
@@ -76,8 +76,8 @@ def test_1():
                     try:
                         WebDriverWait(driver, 3).until(EC.alert_is_present())   #필수 TEXT 입력
                         alert.accept()
-                        select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/ul/li[1]/article/label/div'
-                        element = driver.find_element(By.XPATH, select_xpath).send_keys('test')
+                        element = driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        #element = driver.find_element(By.XPATH, xpath).click()
 
                     except:
                         pass
@@ -97,8 +97,10 @@ def test_1():
         driver.implicitly_wait(3)
         xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
         element = driver.find_element(By.XPATH, xpath).text
+
         if element == itemname:
             result = ' / '+str(number)+'번 상품'+'[상품번호'+str(item)+' Pass]'
+
         else:
             result = ' / '+str(number)+'번 상품'+'[상품번호'+str(item)+' Fail]'
             return False

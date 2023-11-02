@@ -77,7 +77,7 @@ def test_1():
                         WebDriverWait(driver, 3).until(EC.alert_is_present())   #필수 TEXT 입력
                         alert.accept()
                         element = driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
-                        element = driver.find_element(By.XPATH, xpath).click()
+                        #element = driver.find_element(By.XPATH, xpath).click()
 
                     except:
                         pass
@@ -103,6 +103,7 @@ def test_1():
 
         else:
             result = ' / '+str(number)+'번 상품'+'[상품번호'+str(item)+' Fail]'
+            return False
 
         f.write(result)
         assert element == itemname
@@ -207,6 +208,7 @@ def test_2():
     else:
         f.write('Faill - 장바구니에 담긴 상품 수 확인\n')
         f.write('실제 담긴 상품 수: ' + count_s + ' / 장바구니에 표시된 숫자: ' + element_s+'\n')
+        return False
 
     assert count_s == element_s
 
@@ -234,12 +236,13 @@ def test_2():
     print(number_del)
     if count_s == element_s:
         f.write('Pass\n')
-        f.write('삭제한 상품 수: '+number_del +'/장바구니에 담김 상품 수: ' + element_s)
+        f.write('삭제한 상품 수: '+ str(number_del) +'/장바구니에 담김 상품 수: ' + element_s)
     else:
         f.write('Faill\n')
-        f.write('실제 담긴 상품 수: ' + count_s + '/장바구니에 담김 상품 수: ' + element_s + '삭제한 상품 수: '+number_del)
+        f.write('실제 담긴 상품 수: ' + count_s + '/장바구니에 담김 상품 수: ' + element_s + '삭제한 상품 수: '+str(number_del))
+        return False
 
-    count_s == element_s
+    assert count_s == element_s
 
     f.close()
     time.sleep(20)
@@ -345,6 +348,7 @@ def test_3():
         f.write('False\n')
         f.write('노출금액:'+str(total_cost)+'/')
         f.write('실제금액: (상품금액:'+str(item_costs)+'+총 배송비:'+str(ship_cost)+')')
+        return False
 
     assert (item_costs+ship_cost) == total_cost
 

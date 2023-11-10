@@ -91,7 +91,7 @@ def test_1():
                 pass
 
         except:
-            f.write('옵션 선택 실패 상품 번호:' + str(item) + '\n')
+            pass
 
         # 5.장바구니 이동
         xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
@@ -116,9 +116,7 @@ def test_1():
         element = driver.find_element(By.XPATH, xpath).click()  # 쇼핑탭 이동
 
     f.close()
-    screenshot_filename = folder+"OHO-1.png"
-    test_func.full_screenshot(driver, By, screenshot_filename)
-
+    test_func.cart_screenshot(driver, By, folder+'OHO-1',item)
     print('test1 pass')
 
 
@@ -191,7 +189,7 @@ def test_2():
                 pass
 
         except:
-            f.write('옵션 선택 실패 상품 번호:' + str(item) + '\n')
+            pass
 
         element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
 
@@ -322,7 +320,7 @@ def test_3():
                 pass
 
         except:
-            f.write('옵션 선택 실패 상품 번호:' + str(item) + '\n')
+            pass
 
         item_costs += int(re.sub(r'[^0-9]', '', item_cost))
         element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()

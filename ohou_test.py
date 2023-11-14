@@ -137,16 +137,16 @@ def test_2():
     driver.execute_script("arguments[0].click();", element)
     element = driver.find_element(By.CLASS_NAME,'css-97tdd8')
     element.screenshot(folder+'OHO-2_before/del.png')
-    try:
-        element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
-        element.click()
-    except TimeoutException:
-        f.write('삭제 버튼 클릭 시간 초과로 인한 실패\n')
-
-    except Exception as e:
-        f.write('삭제 버튼 클릭 실패(기타 에러)\n')
+    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
+    element.click()
 
     # 7.장바구니에 담긴 상품 수 확인
+    try:
+        WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
+        element.click()
+        f.write('삭제 버튼 클릭 확인 필요\n')
+    except TimeoutException:
+        pass
     driver.refresh()
     element_s = driver.find_element(By.XPATH, xpath_s).text
     count_s = str(count - number_del)
@@ -160,11 +160,10 @@ def test_2():
 
     f.close()
     test_func.cart_screenshot(folder + 'OHO-2_after')
+
     if count_s != element_s:
         return False
-
     print('test2 pass')
-    time.sleep(20)
 
 
 def test_3():

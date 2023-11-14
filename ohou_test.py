@@ -214,6 +214,7 @@ def test_2():
 
     if count_s != element_s:
         return False
+    test_func.cart_screenshot(driver, By, folder + 'OHO-2_before')
 
     # 6.상품 삭제
     if count < 4:
@@ -222,27 +223,32 @@ def test_2():
         number_del = random.randrange(1, count - 1)
     print(str(number_del) + '개 상품 삭제')
     element = driver.find_elements(By.CLASS_NAME, '_3UImz')
+
     for a in range(number_del + 1):
         print(str(a) + '회')
         item_index = element[a]
         item_index.click()
     number_del = a
     element = driver.find_element(By.XPATH, '//button[contains(text(),"삭제")]')
-    element = driver.execute_script("arguments[0].click();", element)
-    xpath = '/html/body/div[2]/div/div/div[2]/div/button[2]'
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, xpath))).click()
+    driver.execute_script("arguments[0].click();", element)
+    element = driver.find_element(By.CLASS_NAME,'css-97tdd8')
+    element.screenshot(folder+'OHO-2_before/del.png')
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-96fdjo')))
+    element.click()
+
 
     # 7.장바구니에 담긴 상품 수 확인
     print('장바구니에 담긴 상품 수 확인')
     driver.refresh()
     element_s = driver.find_element(By.XPATH, xpath_s).text
     count_s = str(count - number_del)
+    f.write('삭제한 상품 수: ' + str(number_del)+'\n')
     if count_s == element_s:
         f.write('Pass\n')
-        f.write('삭제한 상품 수: ' + str(number_del) + ' / 장바구니에 담김 상품 수: ' + element_s)
+        f.write('장바구니에 담김 상품 수: ' + element_s)
     else:
         f.write('Faill\n')
-        f.write('노출되야 될 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s + ' 삭제한 상품 수: ' + str(number_del))
+        f.write('노출되야 될 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s)
 
     f.close()
     test_func.cart_screenshot(driver, By, folder + 'OHO-2')
@@ -250,6 +256,7 @@ def test_2():
         return False
 
     print('test2 pass')
+    time.sleep(20)
 
 
 def test_3():

@@ -1,7 +1,7 @@
 import random
 import re
 import time
-import test_func
+from Test_func import test_func
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import Select
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
+test_func = test_func(driver)
 test_func.create_folder('C:/test')
 f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
@@ -119,7 +120,7 @@ def test_1():
             element = driver.find_element(By.XPATH, xpath).click()  # 쇼핑탭 이동
 
         f.close()
-    finally: test_func.cart_screenshot(driver, By, folder+'OHO-1')
+    finally: test_func.cart_screenshot(folder+'OHO-1')
     print('test1 pass')
 
 
@@ -210,7 +211,7 @@ def test_2():
 
     if count_s != element_s:
         return False
-    test_func.cart_screenshot(driver, By, folder + 'OHO-2_before')
+    test_func.cart_screenshot(folder + 'OHO-2_before')
 
     # 6.상품 삭제
     if count < 4:
@@ -244,7 +245,7 @@ def test_2():
         f.write('노출되야 될 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s)
 
     f.close()
-    test_func.cart_screenshot(driver, By, folder + 'OHO-2')
+    test_func.cart_screenshot(folder + 'OHO-2_after')
     if count_s != element_s:
         return False
 
@@ -350,7 +351,7 @@ def test_3():
         f.write('실제금액: (상품금액:' + str(item_costs) + '+총 배송비:' + str(ship_cost) + ')')
 
     f.close()
-    test_func.cart_screenshot(driver, By, folder+'OHO-3')
+    test_func.cart_screenshot(folder+'OHO-3')
     if (item_costs + ship_cost) != total_cost:
         return False
 

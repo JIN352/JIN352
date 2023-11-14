@@ -16,6 +16,7 @@ f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
 folder = 'C:/test/'
 result = []
+item_number = []
 
 
 def test_1():
@@ -109,6 +110,7 @@ def test_1():
             result = ' / ' + str(number) + '번 상품' + '[상품번호' + str(item) + ' Fail]'
 
         f.write(result)
+        item_number.append(item)
         if element != itemname:
             return False
 
@@ -116,7 +118,7 @@ def test_1():
         element = driver.find_element(By.XPATH, xpath).click()  # 쇼핑탭 이동
 
     f.close()
-    test_func.cart_screenshot(driver, By, folder+'OHO-1',item)
+    test_func.cart_screenshot(driver, By, folder+'OHO-1')
     print('test1 pass')
 
 

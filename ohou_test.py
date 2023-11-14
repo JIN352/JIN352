@@ -142,7 +142,7 @@ def test_2():
 
     # 7.장바구니에 담긴 상품 수 확인
     try:
-        WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
+        WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
         element.click()
         f.write('삭제 버튼 클릭 확인 필요\n')
     except TimeoutException:

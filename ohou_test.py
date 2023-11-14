@@ -17,7 +17,6 @@ f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
 folder = 'C:/test/'
 result = []
-item_number = []
 
 
 def test_1():
@@ -34,54 +33,58 @@ def test_1():
     element = driver.find_element(By.XPATH, xpath).click()
 
     # 3.임의의 상품 선택
-    for number in range(1, 8):
+    try:
+        for number in range(1, 8):
 
-        xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
-        element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute(
-            'href')
-        item = re.findall(r'\d+', element)
-        driver.get(element)
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
-        itemname = driver.find_element(By.XPATH, xpath).text
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
-        element = driver.find_element(By.XPATH, xpath).text
-        baner = '[' + element + '] '
-        itemname = baner + itemname
+            xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
+            element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute(
+                'href')
+            item = re.findall(r'\d+', element)
+            driver.get(element)
+            xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
+            itemname = driver.find_element(By.XPATH, xpath).text
+            xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
+            element = driver.find_element(By.XPATH, xpath).text
+            baner = '[' + element + '] '
+            itemname = baner + itemname
 
-        # 4.장바구니 버튼 클릭
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
-        element = driver.find_element(By.XPATH, xpath).click()
-
-        try:
-            WebDriverWait(driver, 3).until(EC.alert_is_present())  # 1번 필수 옵션 선택
-            alert = driver.switch_to.alert
-            alert.accept()
-            select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
-            element = driver.find_element(By.XPATH, select_xpath)
-            Select(element).select_by_value('1')
+            # 4.장바구니 버튼 클릭
+            xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
             element = driver.find_element(By.XPATH, xpath).click()
 
             try:
-                WebDriverWait(driver, 3).until(EC.alert_is_present())  # 2번 필수 옵션 선택
+                WebDriverWait(driver, 3).until(EC.alert_is_present())  # 1번 필수 옵션 선택
+                alert = driver.switch_to.alert
                 alert.accept()
-                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
+                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
                 element = driver.find_element(By.XPATH, select_xpath)
                 Select(element).select_by_value('1')
                 element = driver.find_element(By.XPATH, xpath).click()
 
                 try:
-                    WebDriverWait(driver, 3).until(EC.alert_is_present())  # 3번 필수 옵션 선택
+                    WebDriverWait(driver, 3).until(EC.alert_is_present())  # 2번 필수 옵션 선택
                     alert.accept()
-                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                     element = driver.find_element(By.XPATH, select_xpath)
                     Select(element).select_by_value('1')
                     element = driver.find_element(By.XPATH, xpath).click()
 
                     try:
-                        WebDriverWait(driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
+                        WebDriverWait(driver, 3).until(EC.alert_is_present())  # 3번 필수 옵션 선택
                         alert.accept()
-                        element = driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                        element = driver.find_element(By.XPATH, select_xpath)
+                        Select(element).select_by_value('1')
                         element = driver.find_element(By.XPATH, xpath).click()
+
+                        try:
+                            WebDriverWait(driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
+                            alert.accept()
+                            element = driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                            element = driver.find_element(By.XPATH, xpath).click()
+
+                        except:
+                            pass
 
                     except:
                         pass
@@ -92,34 +95,30 @@ def test_1():
             except:
                 pass
 
-        except:
-            pass
+            # 5.장바구니 이동
+            xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
+            element = driver.find_element(By.XPATH, xpath_s).click()
 
-        # 5.장바구니 이동
-        xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
-        element = driver.find_element(By.XPATH, xpath_s).click()
+            # 6.상품 확인
+            driver.implicitly_wait(3)
+            xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
+            element = driver.find_element(By.XPATH, xpath).text
 
-        # 6.상품 확인
-        driver.implicitly_wait(3)
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
-        element = driver.find_element(By.XPATH, xpath).text
+            if element == itemname:
+                result = ' / ' + str(number) + '번 상품' + '[상품번호' + str(item) + ' Pass]'
 
-        if element == itemname:
-            result = ' / ' + str(number) + '번 상품' + '[상품번호' + str(item) + ' Pass]'
+            else:
+                result = ' / ' + str(number) + '번 상품' + '[상품번호' + str(item) + ' Fail]'
 
-        else:
-            result = ' / ' + str(number) + '번 상품' + '[상품번호' + str(item) + ' Fail]'
+            f.write(result)
+            if element != itemname:
+                return False
 
-        f.write(result)
-        item_number.append(item)
-        if element != itemname:
-            return False
+            xpath = '/html/body/div[1]/div/div/header/div/div/div/div[3]/a[2]'
+            element = driver.find_element(By.XPATH, xpath).click()  # 쇼핑탭 이동
 
-        xpath = '/html/body/div[1]/div/div/header/div/div/div/div[3]/a[2]'
-        element = driver.find_element(By.XPATH, xpath).click()  # 쇼핑탭 이동
-
-    f.close()
-    test_func.cart_screenshot(driver, By, folder+'OHO-1')
+        f.close()
+    finally: test_func.cart_screenshot(driver, By, folder+'OHO-1')
     print('test1 pass')
 
 
@@ -243,9 +242,10 @@ def test_2():
         f.write('삭제한 상품 수: ' + str(number_del) + ' / 장바구니에 담김 상품 수: ' + element_s)
     else:
         f.write('Faill\n')
-        f.write('실제 담긴 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s + ' 삭제한 상품 수: ' + str(number_del))
+        f.write('노출되야 될 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s + ' 삭제한 상품 수: ' + str(number_del))
 
     f.close()
+    test_func.cart_screenshot(driver, By, folder + 'OHO-2')
     if count_s != element_s:
         return False
 
@@ -350,6 +350,7 @@ def test_3():
         f.write('실제금액: (상품금액:' + str(item_costs) + '+총 배송비:' + str(ship_cost) + ')')
 
     f.close()
+    test_func.cart_screenshot(driver, By, folder+'OHO-3')
     if (item_costs + ship_cost) != total_cost:
         return False
 

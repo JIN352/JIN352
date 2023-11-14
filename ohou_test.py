@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
@@ -137,9 +137,14 @@ def test_2():
     driver.execute_script("arguments[0].click();", element)
     element = driver.find_element(By.CLASS_NAME,'css-97tdd8')
     element.screenshot(folder+'OHO-2_before/del.png')
-    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
-    element.click()
+    try:
+        element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
+        element.click()
+    except TimeoutException:
+        f.write('삭제 버튼 클릭 시간 초과로 인한 실패\n')
 
+    except Exception as e:
+        f.write('삭제 버튼 클릭 실패(기타 에러)\n')
 
     # 7.장바구니에 담긴 상품 수 확인
     driver.refresh()

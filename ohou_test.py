@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import Select
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
+test_func.create_folder('C:/test')
 f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()
 folder = 'C:/test/'

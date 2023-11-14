@@ -137,7 +137,7 @@ def test_2():
     driver.execute_script("arguments[0].click();", element)
     element = driver.find_element(By.CLASS_NAME,'css-97tdd8')
     element.screenshot(folder+'OHO-2_before/del.png')
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-96fdjo')))
+    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
     element.click()
 
 

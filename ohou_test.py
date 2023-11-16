@@ -137,12 +137,12 @@ def test_2():
     driver.execute_script("arguments[0].click();", element)
     element = driver.find_element(By.CLASS_NAME,'css-97tdd8')
     element.screenshot(folder+'OHO-2_before/del.png')
-    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-96fdjo')))
+    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-6ums0u')))
     element.click()
 
     # 7.장바구니에 담긴 상품 수 확인
     try:
-        WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
+        WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
         element.click()
         f.write('삭제 버튼 클릭 확인 필요\n')
     except TimeoutException:

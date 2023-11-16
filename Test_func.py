@@ -116,3 +116,66 @@ class test_func():
 
         except:
             pass
+
+    def item_option_price(self):
+        """
+        상품 페이지 내부에서 장바구니 버튼 클릭 및 옵션 선택과 상품 금액 추가
+        :return: 상품 금액
+        """
+        #장바구니 버튼 클릭
+        element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
+        item_cost = element_s.text
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
+        self.driver.find_element(By.XPATH, xpath).click()
+
+        # 옵션 선택
+        try:
+            WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 1번 필수 옵션 선택
+            alert = self.driver.switch_to.alert
+            alert.accept()
+            select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
+            element = self.driver.find_element(By.XPATH, select_xpath)
+            Select(element).select_by_value('1')
+            element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
+            item_cost = element_s.text
+            self.driver.find_element(By.XPATH, xpath).click()
+
+            try:
+                WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 2번 필수 옵션 선택
+                alert.accept()
+                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
+                element = self.driver.find_element(By.XPATH, select_xpath)
+                Select(element).select_by_value('1')
+                element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
+                item_cost = element_s.text
+                self.driver.find_element(By.XPATH, xpath).click()
+
+                try:
+                    WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 3번 필수 옵션 선택
+                    alert.accept()
+                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                    element = self.driver.find_element(By.XPATH, select_xpath)
+                    Select(element).select_by_value('1')
+                    element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
+                    item_cost = element_s.text
+                    self.driver.find_element(By.XPATH, xpath).click()
+
+                    try:
+                        WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
+                        alert.accept()
+                        self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        self.driver.find_element(By.XPATH, xpath).click()
+
+                    except:
+                        pass
+
+                except:
+                    pass
+
+            except:
+                pass
+
+        except:
+            pass
+
+        return item_cost

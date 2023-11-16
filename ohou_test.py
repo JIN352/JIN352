@@ -178,8 +178,7 @@ def test_3():
 
     # 2.쇼핑탭 이동
     print('쇼핑탭 이동')
-    xpath_s = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
-    element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
+    shoping_clk = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()
 
     # 3.임의의 상품 장바구니에 담기
     print('상품 장바구니에 담기')
@@ -191,11 +190,14 @@ def test_3():
             'href')
         item = re.findall(r'\d+', element)
         driver.get(element)
-        element_s = driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
-        item_cost = element_s.text
-        test_func.item_option()     #상품 장바구니에 담기
+        item_cost = test_func.item_option_price()     #상품 장바구니에 담기 & 상품 금액 확인
         item_costs += int(re.sub(r'[^0-9]', '', item_cost))
-        element_s = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath_s))).click()
+        # print('개별 금액')
+        # print(item_cost)
+        # time.sleep(20)
+        # print('합친금액')
+        # print(item_costs)
+        shoping_clk = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()
 
     # 4.장바구니로 이동
     print('장바구니 이동')
@@ -203,7 +205,7 @@ def test_3():
     element = driver.find_element(By.XPATH, xpath).click()
 
     # 5.총 결제 금액 확인
-    time.sleep(3)
+    time.sleep(2)
     element = driver.find_elements(By.CLASS_NAME, 'commerce-cart__summary__row.commerce-cart__summary__row--total')[0]
     element = element.find_element(By.XPATH, './dd/span').get_attribute('innerText')
     total_cost = int(re.sub(r'[^0-9]', '', element))

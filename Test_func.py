@@ -16,9 +16,9 @@ class test_func():
 
     def cart_screenshot(self, path):
         """
-        장바구니 내부 스크린샷
+        장바구니 내 이미지 저장
         :param path: 파일 저장 위치
-        :return:
+        :return: 없음
         """
 
         self.create_folder(path)                                                       #이미지 저장 폴더 생성
@@ -27,7 +27,7 @@ class test_func():
         self.driver.maximize_window()
         elements = self.driver.find_elements(By.CLASS_NAME, 'commerce-cart__content__group-item')        #상품 위치
 
-        # 상단 배너, 토탈 금액 스크린샷 저장
+        # 상단 배너, 토탈 금액 이미지 저장
         self.driver.find_element(By.CLASS_NAME, 'sticky-child.commerce-cart__side-bar').screenshot(path + '\cart_total.png')
         self.driver.find_element(By.CLASS_NAME, 'css-i7a8i3.e6rqo2c5').screenshot(path + '\cart_bannser.png')
 
@@ -35,7 +35,7 @@ class test_func():
         element_to_remove = self.driver.find_element(By.CLASS_NAME,"sticky-container")
         self.driver.execute_script("arguments[0].parentNode.removeChild(arguments[0]);", element_to_remove)
 
-        # 동일 요소 스크린샷 후 리스트 추가
+        # 동일 요소 이미지 후 리스트 추가
         screenshots = []
         for i, element in enumerate(elements):
             self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
@@ -51,11 +51,11 @@ class test_func():
             combined_image.paste(img, (0, y_offset))
             y_offset += img.height
 
-        combined_image.save(path + '\item_list.png')        # 스크린샷 저장# 상품별 스크린샷 저장
+        combined_image.save(path + '\item_list.png')        # 상품별 이미지 저장
 
     def create_folder(self, directory):
         """
-
+        폴더 생성
         :param directory: 폴더 생성 위치 및 명
         :return: 없음
         """

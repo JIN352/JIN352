@@ -31,7 +31,7 @@ def test_1():
 
     # 2.쇼핑탭 이동
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[3]/a[2]'
-    element = driver.find_element(By.XPATH, xpath).click()
+    driver.find_element(By.XPATH, xpath).click()
 
     # 3.임의의 상품 선택
     try:
@@ -118,9 +118,9 @@ def test_2():
         f.write('Faill - 장바구니에 담긴 상품 수 확인\n')
         f.write('실제 담긴 상품 수: ' + count_s + ' / 장바구니 표시 수: ' + element_s + '\n')
 
+    test_func.cart_screenshot(folder + 'OHO-2_before')
     if count_s != element_s:
         return False
-    test_func.cart_screenshot(folder + 'OHO-2_before')
 
     # 6.상품 삭제
     if count < 4:

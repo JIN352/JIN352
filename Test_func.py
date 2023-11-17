@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
 
 class test_func():
 
@@ -117,6 +118,12 @@ class test_func():
         except:
             pass
 
+        try:
+            WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
+        except TimeoutException:
+            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.XPATH, xpath).click()
+
     def item_option_price(self):
         """
         상품 페이지 내부에서 장바구니 버튼 클릭 및 옵션 선택과 상품 금액 추가
@@ -177,5 +184,11 @@ class test_func():
 
         except:
             pass
+
+        try:
+            WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
+        except TimeoutException:
+            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.XPATH, xpath).click()
 
         return item_cost

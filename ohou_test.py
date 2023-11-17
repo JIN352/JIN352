@@ -1,8 +1,8 @@
 import random
 import re
 import time
-from Test_func import test_func
 
+from Test_func import test_func
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -79,7 +79,6 @@ def test_1():
 
 
 def test_2():
-    global a
     driver.delete_all_cookies()  # 쿠키 삭제
     f = open("C:/test/ohou_test_result.txt", 'a')
     f.write('\n\nOHO-2:랜덤 상품 장바구니 담기 확인\n')
@@ -142,7 +141,7 @@ def test_2():
 
     # 7.장바구니에 담긴 상품 수 확인
     try:
-        WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-97tdd8')))
         element.click()
         f.write('삭제 버튼 클릭 확인 필요\n')
     except TimeoutException:
@@ -172,16 +171,13 @@ def test_3():
     f.write('\n\nOHO-3:랜덤 상품 장바구니 담기 확인\n')
     # 랜덤 상품 장바구니 담기 확인
     # 1.브라우저 열기
-    print('브라우저 연결')
     url = 'https://ohou.se/'
     driver.get(url)
 
     # 2.쇼핑탭 이동
-    print('쇼핑탭 이동')
     shoping_clk = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()
 
     # 3.임의의 상품 장바구니에 담기
-    print('상품 장바구니에 담기')
     count = random.randrange(2, 7)
     item_costs = 0
     for number in range(1, count + 1):
@@ -192,15 +188,9 @@ def test_3():
         driver.get(element)
         item_cost = test_func.item_option_price()     #상품 장바구니에 담기 & 상품 금액 확인
         item_costs += int(re.sub(r'[^0-9]', '', item_cost))
-        # print('개별 금액')
-        # print(item_cost)
-        # time.sleep(20)
-        # print('합친금액')
-        # print(item_costs)
         shoping_clk = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()
 
     # 4.장바구니로 이동
-    print('장바구니 이동')
     xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
     element = driver.find_element(By.XPATH, xpath).click()
 

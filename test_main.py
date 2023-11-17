@@ -5,7 +5,6 @@ f_m.close()
 #@pytest.mark.flaky(reruns=2, reruns_delay=2) # 실패 후 3번 재 실행
 # 랜덤 상품 장바구니 담기 확인
 def test():
-    global oho, result
     f_m = open("C:/test/test_result.txt", 'a')
 
     try: oho = ohou_test.test_1()

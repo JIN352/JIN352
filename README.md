@@ -4,8 +4,8 @@
 
 
 * 💻 5년차 QA(Quality Assurance)입니다.
-* 🧳 여행다니며 😎 즐거운 일을 찾기위해 도전중입니다.
-* 🗒️ 테스트 시나리오 http://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&link=https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4) 
+* 🧳 여행다니며 새로운것에 도전하는걸 좋아합니다. 😎 
+* 🗒️ 테스트 시나리오는 노션을 통해 확인해 주세요. <code><img height="25" img src="http://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&link=https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4"/></a></code>
 
 
 <h3> ⚒️TECH STACK⚒️</h3>

@@ -70,7 +70,7 @@ def test_1():
 
         f.close()
     finally: test_func.cart_screenshot(folder+'OHO-1')          #장바구니 내부 이미지 저장
-    print('test1 pass')
+    print('\ntest1 pass')
 
 
 def test_2():
@@ -195,12 +195,12 @@ def test_3():
     ship_cost = int(re.sub(r'[^0-9]', '', element))
     if (item_costs + ship_cost) == total_cost:                                                  #상품별 합산 금액과 장바구니에 노출되는 총 결제 금액 확인
         f.write('Pass\n')
-        f.write('노출금액:' + str(total_cost) + '/')
-        f.write('실제금액: 상품금액' + str(item_costs) + '총 배송비:')
+        f.write('노출금액:' + str(total_cost) + '\n')
+        f.write('실제금액:(상품금액:' + str(item_costs) + ' / 총 배송비:' + str(ship_cost) + ')')
     else:
         f.write('False\n')
-        f.write('노출금액:' + str(total_cost) + '/')
-        f.write('실제금액: (상품금액:' + str(item_costs) + '+총 배송비:' + str(ship_cost) + ')')
+        f.write('노출금액:' + str(total_cost) + '\n')
+        f.write('실제금액:(상품금액:' + str(item_costs) + ' / 총 배송비:' + str(ship_cost) + ')')
 
     f.close()
     test_func.cart_screenshot(folder+'OHO-3')                                                   #장바구니 이미지 저장

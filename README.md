@@ -2,7 +2,7 @@
 
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJIN352%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=VISIT&edge_flat=false)](https://hits.seeyoufarm.com)
-[![Notion Badge](http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4)](https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4)
+[![Notion Badge](http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://www.notion.so/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4)]([https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4](https://www.notion.so/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4))
 
 
 * 💻 5년차 QA(Quality Assurance)입니다.

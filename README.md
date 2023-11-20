@@ -1,7 +1,7 @@
 ### 👋 안녕하세요 이미진입니다!
 
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJIN352%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=VISIT&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJIN352%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=count&edge_flat=false)](https://hits.seeyoufarm.com)
 [![Notion Badge](http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://defiant-stool-4b9.notion.site/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4)](https://defiant-stool-4b9.notion.site/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4)
 
 
@@ -10,7 +10,7 @@
 * 🗒️ 테스트 시나리오는 노션을 통해 확인해 주세요.
   <a href="https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4"><img src="http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4">
 * 확인 시 터미널에 아래의 문구 입력해주세요<br/>
-  pytest test_main.py -> pytest 파일명.py
+  pytest 파일명.py -> pytest test_main.py
 
 
 ## Work experience 🤹‍♀️

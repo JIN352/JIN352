@@ -43,4 +43,28 @@ def test():
     finally:
         f_m.write(result)
 
+    try: oho = ohou_test.test_4()
+    except: pass
+    try:
+        if oho is False:
+            result = 'OHO-4 Fail\n'
+        else:
+            result = 'OHO-4 Pass\n'
+    except Exception as e:
+        result = 'test_4 스크립트 오류 '+ str(e) +'\n'
+    finally:
+        f_m.write(result)
+
+    try: oho = ohou_test.test_5()
+    except: pass
+    try:
+        if oho is False:
+            result = 'OHO-5 Fail\n'
+        else:
+            result = 'OHO-5 Pass\n'
+    except Exception as e:
+        result = 'test_5 스크립트 오류 '+ str(e) +'\n'
+    finally:
+        f_m.write(result)
+
 f_m.close()

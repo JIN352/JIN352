@@ -192,3 +192,18 @@ class test_func():
             self.driver.find_element(By.XPATH, xpath).click()
 
         return item_cost
+
+    def item_name(self):
+        """
+        상품명 추출
+        :return: 상품명
+        """
+
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
+        itemname = self.driver.find_element(By.XPATH, xpath).text
+        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
+        element = self.driver.find_element(By.XPATH, xpath).text
+        baner = '[' + element + '] '
+        itemname = baner + itemname  # 상품 이름 추출
+
+        return itemname

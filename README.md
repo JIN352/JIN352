@@ -13,12 +13,6 @@
   pytest 파일명.py -> pytest test_main.py
 
 
-## Work experience 🤹‍♀️
-- (2016.11 - 2018.11) 상상티앤에스
-- (2020.03 - 2023.11) 에스티에이테스팅컨설팅
-
-
 <h3> ⚒️TECH STACK⚒️</h3>
-
 
 <code><img height="25" img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/JIRA-2684FF?style=flat-square&logo=JIRA&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/Confluence-2684FF?style=flat-square&logo=Confluence&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/TestRail-50D18D?style=flat-square&logo=TestRail&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/Orange for Oracle-EF0F14?style=flat-square&logo=Orange for Oracle&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/MSSQL-000000?style=flat-square&logo=MSSQL&logoColor=white"/></a></code>   <code><img height="25" img src="https://img.shields.io/badge/POSTMAN-F36933?style=flat-square&logo=POSTMAN&logoColor=white"/></a></code>

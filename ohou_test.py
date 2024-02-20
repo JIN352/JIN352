@@ -251,8 +251,8 @@ def test_4():
     ship_cost = int(re.sub(r'[^0-9]', '', element))
     if (item_costs + ship_cost) == total_cost:                                                  #상품별 합산 금액과 장바구니에 노출되는 총 결제 금액 확인
         f.write('노출금액:' + str(total_cost) + '\n')
-        f.write('실제금액:(상품금액:' + str(item_costs) + ' / 총 배송비:' + str(ship_cost) + ')')
-        f.write('Pass\n')
+        f.write('실제금액:(상품금액:' + str(item_costs) + ' / 총 배송비:' + str(ship_cost) + ')'+'\n')
+        f.write('Pass')
     else:
         f.write('노출금액:' + str(total_cost) + '\n')
         f.write('실제금액:(상품금액:' + str(item_costs) + ' / 총 배송비:' + str(ship_cost) + ')')
@@ -264,6 +264,57 @@ def test_4():
         return False
 
     print('test4 pass')
+
+def test_5():
+    # 로그인 팝업 노출 확인
+    driver.delete_all_cookies()  # 쿠키 삭제
+    f = open("C:/test/ohou_test_result.txt", 'a')
+    f.write('\n\nOHO-5:로그인 팝업 노출 확인\n')
+
+    # 1.오늘의집 홈페이지 이동
+    url = 'https://ohou.se/'
+    driver.get(url)
+
+    # 2.GNB의 쇼핑 클릭
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()
+
+    # 3.임의의 상품 장바구니에 담기
+    count = random.randrange(2, 7)  # 장바구니에 담을 상품 수 선택
+    for number in range(1, count + 1):
+        xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'  # 상품링크 추출
+        element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute(
+            'href')
+        driver.get(element)  # 상품 페이지 이동
+        test_func.item_option()  # 상품 장바구니에 담기
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']"))).click()  # 쇼핑탭 이동
+
+    # 4.장바구니 아이콘 클릭
+    xpath = '/html/body/div[1]/div/div/header/div[1]/div/div/div[4]/div/a'
+    driver.find_element(By.XPATH, xpath).click()
+
+    # 5.상품 구매하기 버튼 클릭
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'commerce-cart__side-bar__order')))
+    driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div/div/div/button').click()
+    time.sleep(10)
+
+    # 6.로그인 팝업 확인
+    driver.to_switch(driver.window_handles[1])
+    time.sleep(10)
+    element = driver.find_element(By.CLASS_NAME,'css-fwddxj.ebon26m7')
+    element.screenshot(folder+'OHO-5/pop.png')
+    if element :
+        f.write('로그인 팝업 노출\n')
+        f.write('Pass')
+    else:
+        f.write('로그인 팝업 미노출\n')
+        f.write('False')
+
+    f.close()
+    if element: pass
+    else: return False
+    print('test5 pass')
+
+
 
 
 

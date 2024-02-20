@@ -2,7 +2,6 @@
 
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJIN352%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=count&edge_flat=false)](https://hits.seeyoufarm.com)
-[![Notion Badge](http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://defiant-stool-4b9.notion.site/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4)](https://defiant-stool-4b9.notion.site/79ca75f6cf3e4621a8bd6d00ee3afe62?pvs=4)
 
 
 * 💻 5년째 QA(Quality Assurance)업무를 하고있습니다.

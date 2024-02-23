@@ -268,6 +268,7 @@ def test_4():
 def test_5():
     # 로그인 팝업 노출 확인
     driver.delete_all_cookies()  # 쿠키 삭제
+    test_func.create_folder('C:/test/OHO-5')
     f = open("C:/test/ohou_test_result.txt", 'a')
     f.write('\n\nOHO-5:로그인 팝업 노출 확인\n')
 
@@ -295,12 +296,10 @@ def test_5():
     # 5.상품 구매하기 버튼 클릭
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'commerce-cart__side-bar__order')))
     driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div/div/div/button').click()
-    time.sleep(10)
-
     # 6.로그인 팝업 확인
-    driver.to_switch(driver.window_handles[1])
-    time.sleep(10)
-    element = driver.find_element(By.CLASS_NAME,'css-fwddxj.ebon26m7')
+
+    driver.switch_to.window(driver.window_handles[1])
+    element = driver.find_element(By.CLASS_NAME,'css-75lrwi')
     element.screenshot(folder+'OHO-5/pop.png')
     if element :
         f.write('로그인 팝업 노출\n')

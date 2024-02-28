@@ -10,10 +10,10 @@ def test():
     try: oho = ohou_test.test_1()
     except: pass
     try:
-        if oho is False:
-            result = 'OHO-1 Fail\n'
-        else:
+        if oho is True:
             result = 'OHO-1 Pass\n'
+        else:
+            result = 'OHO-1 Fail\n'
     except Exception as e:
         result = 'test_1 스크립트 오류 '+ str(e) +'\n'
     finally:
@@ -22,10 +22,10 @@ def test():
     try: oho = ohou_test.test_2()
     except: pass
     try:
-        if oho is False:
-            result = 'OHO-2 Fail\n'
-        else:
+        if oho is True:
             result = 'OHO-2 Pass\n'
+        else:
+            result = 'OHO-2 Fail\n'
     except Exception as e:
         result = 'test_2 스크립트 오류 ' + str(e) +'\n'
     finally:
@@ -34,10 +34,10 @@ def test():
     try:oho = ohou_test.test_3()
     except: pass
     try:
-        if oho is False:
-            result = 'OHO-3 Fail\n'
-        else:
+        if oho is True:
             result = 'OHO-3 Pass\n'
+        else:
+            result = 'OHO-3 Fail\n'
     except Exception as e:
         result = 'test_3 스크립트 오류 ' + str(e) + '\n'
     finally:
@@ -46,10 +46,10 @@ def test():
     try: oho = ohou_test.test_4()
     except: pass
     try:
-        if oho is False:
-            result = 'OHO-4 Fail\n'
-        else:
+        if oho is True:
             result = 'OHO-4 Pass\n'
+        else:
+            result = 'OHO-4 Fail\n'
     except Exception as e:
         result = 'test_4 스크립트 오류 '+ str(e) +'\n'
     finally:
@@ -58,10 +58,10 @@ def test():
     try: oho = ohou_test.test_5()
     except: pass
     try:
-        if oho is False:
-            result = 'OHO-5 Fail\n'
-        else:
+        if oho is True:
             result = 'OHO-5 Pass\n'
+        else:
+            result = 'OHO-5 Fail\n'
     except Exception as e:
         result = 'test_5 스크립트 오류 '+ str(e) +'\n'
     finally:

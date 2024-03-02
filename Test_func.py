@@ -81,7 +81,13 @@ class test_func():
             alert.accept()
             select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
             element = self.driver.find_element(By.XPATH, select_xpath)
-            Select(element).select_by_value('1')
+            select = Select(element)            # Select 객체 생성
+            options = select.options            # 모든 옵션 가져오기
+            for option in options[1:]:
+                # 옵션의 텍스트에 "품절"이 포함되어 있다면 다른 옵션 선택
+                if "품절" not in option.text:
+                    select.select_by_visible_text(option.text)
+                    break
             self.driver.find_element(By.XPATH, xpath).click()
 
             try:
@@ -89,7 +95,13 @@ class test_func():
                 alert.accept()
                 select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = self.driver.find_element(By.XPATH, select_xpath)
-                Select(element).select_by_value('1')
+                select = Select(element)  # Select 객체 생성
+                options = select.options  # 모든 옵션 가져오기
+                for option in options[1:]:
+                    # 옵션의 텍스트에 "품절"이 포함되어 있다면 다른 옵션 선택
+                    if "품절" not in option.text:
+                        select.select_by_visible_text(option.text)
+                        break
                 self.driver.find_element(By.XPATH, xpath).click()
 
                 try:
@@ -97,7 +109,13 @@ class test_func():
                     alert.accept()
                     select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = self.driver.find_element(By.XPATH, select_xpath)
-                    Select(element).select_by_value('1')
+                    select = Select(element)  # Select 객체 생성
+                    options = select.options  # 모든 옵션 가져오기
+                    for option in options[1:]:
+                        # 옵션의 텍스트에 "품절"이 포함되어 있다면 다른 옵션 선택
+                        if "품절" not in option.text:
+                            select.select_by_visible_text(option.text)
+                            break
                     self.driver.find_element(By.XPATH, xpath).click()
 
                     try:

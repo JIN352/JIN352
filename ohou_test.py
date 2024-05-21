@@ -2,7 +2,7 @@ import random
 import re
 import time
 
-from Test_func import test_func
+from test_func import test_func
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -38,9 +38,7 @@ def test_1():
         try:
             count = random.randrange(2, 7)  # 장바구니에 담을 상품 수 선택
             for number in range(1, count + 1):
-
-                xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
-                element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+                element = test_func.get_link(number)
                 item = re.findall(r'\d+', element)
                 driver.get(element)                 #상품 페이지 이동
                 itemname = test_func.item_name()    #상품 이름 추출
@@ -90,8 +88,7 @@ def test_2():
         # 3.임의의 상품 장바구니에 담기
         count = random.randrange(2, 7)      #장바구니에 담을 상품 수 선택
         for number in range(1, count + 1):
-            xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'       #상품링크 추출
-            element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+            element = test_func.get_link(number)
             driver.get(element)         #상품 페이지 이동
             test_func.item_option()     #상품 장바구니에 담기
             clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']")))
@@ -143,8 +140,7 @@ def test_3():
         # 3.임의의 상품 장바구니에 담기
         count = random.randrange(2, 7)      #장바구니에 담을 상품 수 선택
         for number in range(1, count + 1):
-            xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'       #상품링크 추출
-            element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+            element = test_func.get_link(number)
             driver.get(element)         #상품 페이지 이동
             item_list.append(test_func.item_name())
             test_func.item_option()     #상품 장바구니에 담기
@@ -241,8 +237,7 @@ def test_4():
         count = random.randrange(2, 7)          # 장바구니에 담을 상품 수 선택
         item_costs = 0
         for number in range(1, count + 1):
-            xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'
-            element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+            element = test_func.get_link(number)
             driver.get(element)                           #상품 페이지 이동
             item_cost = test_func.item_option_price()     #상품 장바구니에 담기 & 상품 금액 확인
             item_costs += int(re.sub(r'[^0-9]', '', item_cost))
@@ -299,8 +294,7 @@ def test_5():
         # 3.임의의 상품 장바구니에 담기
         count = random.randrange(2, 7)  # 장바구니에 담을 상품 수 선택
         for number in range(1, count + 1):
-            xpath = '//*[@id="store-index"]/section[3]/div[2]/div[' + str(number) + ']/article/a'  # 상품링크 추출
-            element = WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.XPATH, xpath))).get_attribute('href')
+            element = test_func.get_link(number)
             driver.get(element)  # 상품 페이지 이동
             test_func.item_option()  # 상품 장바구니에 담기
             clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='쇼핑']")))

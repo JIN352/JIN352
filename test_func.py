@@ -1,5 +1,6 @@
 import io
 import os
+import time
 
 from PIL import Image
 from selenium.webdriver.common.by import By
@@ -29,7 +30,7 @@ class test_func():
 
         # 상단 배너, 토탈 금액 이미지 저장
         self.driver.find_element(By.CLASS_NAME, 'sticky-child.commerce-cart__side-bar').screenshot(path + '\cart_total.png')
-        self.driver.find_element(By.CLASS_NAME, 'css-i7a8i3.e6rqo2c5').screenshot(path + '\cart_bannser.png')
+        self.driver.find_element(By.CLASS_NAME, 'sticky-container').screenshot(path + '\cart_bannser.png')
 
         # 상단 배너 제거
         element_to_remove = self.driver.find_element(By.CLASS_NAME,"sticky-container")
@@ -225,3 +226,17 @@ class test_func():
         itemname = baner + itemname  # 상품 이름 추출
 
         return itemname
+
+    def get_link(self, number):
+        """
+        상품 링크 추출
+        :param number: 장바구니에 담을 상품 갯수
+        :return: 상품링크
+        """
+        element = self.driver.find_element(By.CLASS_NAME,'css-1i1zz0y.e1g1wifd2')
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        time.sleep(2)
+        line_choice = self.driver.find_elements(By.CLASS_NAME,'css-oe54r4.etj6rb20')[number-1]
+        element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
+        return element
+

@@ -10,8 +10,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
-class test_func():
-
+class oho_test_func():
+    # ohou_test에 사용
     # Initializer
     def __init__(self, driver):     # 초기화
         self.driver = driver

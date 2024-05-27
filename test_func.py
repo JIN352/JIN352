@@ -1,6 +1,7 @@
 import io
 import os
 import time
+import re
 
 from PIL import Image
 from selenium.webdriver.common.by import By
@@ -247,3 +248,78 @@ class oho_test_func():
         element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
         return element
 
+class kur_test_func():
+    # kurly_test에 사용
+    # Initializer
+    def __init__(self, driver):     # 초기화
+        self.driver = driver
+
+    def create_folder(self, directory):
+        """
+        폴더 생성
+        :param directory: 폴더 생성 위치 및 명
+        :return: 없음
+        """
+        try:
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+        except OSError:
+            print("Error: Failed to create the directory.")
+
+    def cart_screenshot(self, path):
+        """
+        장바구니 내 이미지 저장
+        :param path: 파일 저장 위치
+        :return: 없음
+        """
+
+        self.create_folder(path)                                                       #이미지 저장 폴더 생성
+        self.driver.find_element(By.CLASS_NAME, 'css-ff2aah.e14oy6dx2').click()                  #장바구니 위치 이동
+        self.driver.find_element(By.CLASS_NAME, 'css-10w9uhr.e1p13h9k0').click()        #쿠폰 띠배너 제거
+        self.driver.maximize_window()
+        elements = self.driver.find_elements(By.CLASS_NAME, 'css-8wfj4z.er0tf672')        #상품 위치
+
+        # 상단 배너, 토탈 금액 이미지 저장
+        self.driver.find_element(By.CLASS_NAME, 'css-1dta0ch.er0tf671').screenshot(path + '\cart_total.png')
+        self.driver.find_element(By.CLASS_NAME, 'css-r7wmjj.e15sbxqa3').screenshot(path + '\cart_bannser.png')
+
+        # 상단 배너 제거
+        element_to_remove = self.driver.find_element(By.CLASS_NAME,"css-r7wmjj.e15sbxqa3")
+        self.driver.execute_script("arguments[0].parentNode.removeChild(arguments[0]);", element_to_remove)
+
+        # 동일 요소 이미지 후 리스트 추가
+        screenshots = []
+        for i, element in enumerate(elements):
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            screenshot = element.screenshot_as_png
+            screenshots.append(Image.open(io.BytesIO(screenshot)))
+
+        # 이미지 사이즈 조정
+        combined_image = Image.new('RGB', (max(img.width for img in screenshots), sum(img.height for img in screenshots)))
+
+        # 이미지를 합치기
+        y_offset = 0
+        for img in screenshots:
+            combined_image.paste(img, (0, y_offset))
+            y_offset += img.height
+
+        combined_image.save(path + '\item_list.png')        # 상품별 이미지 저장
+
+    def get_item(self, number):
+        """
+        상품 장바구니에 담기
+        :param number: 장바구니에 담을 상품 갯수
+        :return: 상품정보
+        """
+        element = self.driver.find_element(By.CLASS_NAME,'css-pzlq5x.e1xr3h8k1')
+        element = element.driver.find_element(By.CLASS_NAME,'css-1d3w5wq.ef36txc6')
+        item_choice = element.driver.find_element(By.CLASS_NAME,'css-11kh0cw.ef36txc5')
+        print('2성공')
+        element = item_choice.find_elements(By.TAG_NAME,'a')[number-1]
+        item_number = element.get_attribute('href')
+        item_number = re.findall(r'\d+', item_number)
+        item_name = element.fidn_element(By.CLASS_NAME,'css-1dry2r1.e1c07x485').text
+        item_info = '[상품명:'+item_name+'/'+'상품번호:'+str(item_number)+']'
+        element.find_element(By.CLASS_NAME,'button-wrapper').click()
+        self.driver.find_element(By.CLASS_NAME,'css-ahkst0.e4nu7ef3').click()
+        return item_info

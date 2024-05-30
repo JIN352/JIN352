@@ -280,6 +280,9 @@ class kur_test_func():
         elements = self.driver.find_elements(By.CLASS_NAME, 'css-8wfj4z.er0tf672')        #상품 위치
 
         # 상단 배너, 토탈 금액 이미지 저장
+        self.driver.refresh()
+        time.sleep(2)
+        self.driver.find_element(By.ID,'__next').screenshot(path + '\cart.png')
         self.driver.find_element(By.CLASS_NAME, 'css-1dta0ch.er0tf671').screenshot(path + '\cart_total.png')
         self.driver.find_element(By.CLASS_NAME, 'css-r7wmjj.e15sbxqa3').screenshot(path + '\cart_bannser.png')
 

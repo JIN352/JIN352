@@ -305,7 +305,7 @@ class kur_test_func():
         """
         상품 장바구니에 담기
         :param number: 장바구니에 담을 상품 갯수
-        :return: 상품정보
+        :return: 상품정보, 상품명
         """
         item_number = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-8bebpy.e1c07x488')))
         item_number = item_number[number-1].get_attribute('href')       #상품번호 확인
@@ -326,4 +326,4 @@ class kur_test_func():
             WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='장바구니 담기']"))).click()
         else: pass
 
-        return item_info
+        return item_info, item_name

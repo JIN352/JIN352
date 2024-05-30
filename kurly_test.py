@@ -31,10 +31,6 @@ def test_1():
         # 2.GNB의 신상품 클릭
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='신상품']")))
         clk_button.click()
-        b = driver.find_elements(By.XPATH,'//*[@id="__next"]/div[2]/div[1]/ul/li[2]')
-        b.click()
-        print('성공')
-        time.sleep(10)
 
         # 3.임의의 상품 장바구니에 담기
         try:
@@ -42,7 +38,6 @@ def test_1():
             for number in range(1, count + 1):
                 item_info = test_func.get_item(number)# 장바구니에 상품 담기
                 item_name = item_info
-                print('3번성공')
 
         # 4.장바구니 아이콘 클릭
                 driver.find_element(By.CLASS_NAME,'css-ff2aah.e14oy6dx2').click()

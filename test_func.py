@@ -311,15 +311,23 @@ class kur_test_func():
         :param number: 장바구니에 담을 상품 갯수
         :return: 상품정보
         """
-        element = self.driver.find_element(By.CLASS_NAME,'css-pzlq5x.e1xr3h8k1')
-        element = element.driver.find_element(By.CLASS_NAME,'css-1d3w5wq.ef36txc6')
-        item_choice = element.driver.find_element(By.CLASS_NAME,'css-11kh0cw.ef36txc5')
-        print('2성공')
-        element = item_choice.find_elements(By.TAG_NAME,'a')[number-1]
-        item_number = element.get_attribute('href')
+        item_number = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-8bebpy.e1c07x488')))
+        item_number = item_number[number-1].get_attribute('href')       #상품번호 확인
         item_number = re.findall(r'\d+', item_number)
-        item_name = element.fidn_element(By.CLASS_NAME,'css-1dry2r1.e1c07x485').text
-        item_info = '[상품명:'+item_name+'/'+'상품번호:'+str(item_number)+']'
-        element.find_element(By.CLASS_NAME,'button-wrapper').click()
-        self.driver.find_element(By.CLASS_NAME,'css-ahkst0.e4nu7ef3').click()
+
+        item_name = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1dry2r1.e1c07x485')))
+        item_name = item_name[number - 1].text                          #상품명 확인
+
+        item_choice = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-13xu5fn.e17x72af0')))
+        item_choice[number-1].click()                                   #담기 버튼 클릭
+
+        item_info = '[상품명:'+item_name+'/'+'상품번호:'+str(item_number)+']'          #상품명, 상품번호 병합
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='장바구니 담기']"))).click()      #장바구니 담기 버튼 클릭
+        element = self.driver.find_element(By.ID,'swal2-content')
+        if element.is_displayed():
+            self.driver.find_element(By.CLASS_NAME,'css-1necch4.e1k5padi1').click()
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-18y6jr4.e1hx75jb0'))).click()
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='장바구니 담기']"))).click()
+        else: pass
+
         return item_info

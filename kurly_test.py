@@ -27,6 +27,7 @@ def test_1():
         # 1.마켓컬리 홈페이지 이동
         url = 'https://www.kurly.com/'
         driver.get(url)
+        driver.maximize_window()
 
         # 2.GNB의 신상품 클릭
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f"//*[text()='신상품']")))
@@ -40,7 +41,7 @@ def test_1():
                 item_name = item_info
 
         # 4.장바구니 아이콘 클릭
-                driver.find_element(By.CLASS_NAME,'css-ff2aah.e14oy6dx2').click()
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME,'css-ff2aah.e14oy6dx2'))).click()
         # 5.상품명 확인
                 elements = driver.find_elements(By.CLASS_NAME,'css-efcx1u.esoayg86')
                 for element in elements:            #실제 상품 명칭과 장바구니내 노출되는 상품 명칭 비교

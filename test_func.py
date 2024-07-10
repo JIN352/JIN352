@@ -122,7 +122,7 @@ class test_func():
                     try:
                         WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
                         alert.accept()
-                        self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')
                         self.driver.find_element(By.XPATH, xpath).click()
 
                     except:
@@ -140,7 +140,7 @@ class test_func():
         try:
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
         except TimeoutException:
-            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')          # 필수 TEXT 입력
             self.driver.find_element(By.XPATH, xpath).click()
 
     def item_option_price(self):
@@ -189,7 +189,7 @@ class test_func():
                     try:
                         WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
                         alert.accept()
-                        self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')
                         self.driver.find_element(By.XPATH, xpath).click()
 
                     except:
@@ -207,7 +207,7 @@ class test_func():
         try:
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
         except TimeoutException:
-            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')          # 필수 TEXT 입력
             self.driver.find_element(By.XPATH, xpath).click()
 
         return item_cost

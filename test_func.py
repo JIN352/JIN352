@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 
 class test_func():
 
@@ -233,10 +234,22 @@ class test_func():
         :param number: 장바구니에 담을 상품 갯수
         :return: 상품링크
         """
-        element = self.driver.find_element(By.CLASS_NAME,'css-1i1zz0y.e1g1wifd2')
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        WebDriverWait(self.driver, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1wfatt8.elsa23f0')))
+        scroll_amount = 300  # 픽셀 단위로 스크롤 양을 설정
+        self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")         #상품으로 스크롤 이동
         time.sleep(2)
-        line_choice = self.driver.find_elements(By.CLASS_NAME,'css-oe54r4.etj6rb20')[number-1]
+        elements = self.driver.find_elements(By.CLASS_NAME, 'css-1wfatt8.elsa23f0')[number-1]
+
+        #하위요소의 Class name확인
+        try:
+            item_class = elements.find_element(By.TAG_NAME,'article')
+        except:
+            print('Classname 확인 필요')
+        item_class = item_class.get_attribute('class')
+        item_class= item_class.replace(" ", ".")
+
+        #상품링크 추출
+        line_choice = self.driver.find_elements(By.CLASS_NAME, item_class)[number-1]
         element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
         return element
 

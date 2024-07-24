@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.keys import Keys
 
 class oho_test_func():
     # ohou_test에 사용
@@ -24,7 +25,7 @@ class oho_test_func():
         """
 
         self.create_folder(path)                                                       #이미지 저장 폴더 생성
-        self.driver.find_element(By.CLASS_NAME, 'css-ym6lm7').click()                  #장바구니 위치 이동
+        self.driver.find_element(By.CLASS_NAME, 'css-giclcf').click()                  #장바구니 위치 이동
         self.driver.find_element(By.CLASS_NAME, 'css-1rqmgt4.enny2c40').click()        #쿠폰 띠배너 제거
         self.driver.maximize_window()
         elements = self.driver.find_elements(By.CLASS_NAME, 'commerce-cart__content__group-item')        #상품 위치
@@ -123,7 +124,7 @@ class oho_test_func():
                     try:
                         WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
                         alert.accept()
-                        self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')
                         self.driver.find_element(By.XPATH, xpath).click()
 
                     except:
@@ -141,7 +142,7 @@ class oho_test_func():
         try:
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
         except TimeoutException:
-            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')          # 필수 TEXT 입력
             self.driver.find_element(By.XPATH, xpath).click()
 
     def item_option_price(self):
@@ -190,7 +191,7 @@ class oho_test_func():
                     try:
                         WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 필수 TEXT 입력
                         alert.accept()
-                        self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')
+                        self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')
                         self.driver.find_element(By.XPATH, xpath).click()
 
                     except:
@@ -208,7 +209,7 @@ class oho_test_func():
         try:
             WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.CLASS_NAME, "css-0.e131ry20")))
         except TimeoutException:
-            self.driver.find_element(By.CLASS_NAME, 'css-1kg8g4k').send_keys('test')          # 필수 TEXT 입력
+            self.driver.find_element(By.CLASS_NAME, 'css-1nol6lk').send_keys('test')          # 필수 TEXT 입력
             self.driver.find_element(By.XPATH, xpath).click()
 
         return item_cost
@@ -234,10 +235,22 @@ class oho_test_func():
         :param number: 장바구니에 담을 상품 갯수
         :return: 상품링크
         """
-        element = self.driver.find_element(By.CLASS_NAME,'css-1i1zz0y.e1g1wifd2')
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        WebDriverWait(self.driver, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1wfatt8.elsa23f0')))
+        scroll_amount = 300  # 픽셀 단위로 스크롤 양을 설정
+        self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")         #상품으로 스크롤 이동
         time.sleep(2)
-        line_choice = self.driver.find_elements(By.CLASS_NAME,'css-oe54r4.etj6rb20')[number-1]
+        elements = self.driver.find_elements(By.CLASS_NAME, 'css-1wfatt8.elsa23f0')[number-1]
+
+        #하위요소의 Class name확인
+        try:
+            item_class = elements.find_element(By.TAG_NAME,'article')
+        except:
+            print('Classname 확인 필요')
+        item_class = item_class.get_attribute('class')
+        item_class= item_class.replace(" ", ".")
+
+        #상품링크 추출
+        line_choice = self.driver.find_elements(By.CLASS_NAME, item_class)[number-1]
         element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
         return element
 

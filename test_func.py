@@ -234,19 +234,13 @@ class test_func():
         :param number: 장바구니에 담을 상품 갯수
         :return: 상품링크
         """
-        WebDriverWait(self.driver, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'css-1wfatt8.elsa23f0')))
+        element = self.driver.find_element(By.XPATH, '//*[@id="__next"]/div[1]/div/div[2]/div/div[3]/div/div[2]/div/div/div/div/div[1]/div/div[1]/article')
+        item_class = element.get_attribute('class')
+        item_class = item_class.replace(" ", ".")
+        WebDriverWait(self.driver, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, item_class)))
         scroll_amount = 300  # 픽셀 단위로 스크롤 양을 설정
         self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")         #상품으로 스크롤 이동
-        time.sleep(2)
-        elements = self.driver.find_elements(By.CLASS_NAME, 'css-1wfatt8.elsa23f0')[number-1]
-
-        #하위요소의 Class name확인
-        try:
-            item_class = elements.find_element(By.TAG_NAME,'article')
-        except:
-            print('Classname 확인 필요')
-        item_class = item_class.get_attribute('class')
-        item_class= item_class.replace(" ", ".")
+        time.sleep(3)
 
         #상품링크 추출
         line_choice = self.driver.find_elements(By.CLASS_NAME, item_class)[number-1]

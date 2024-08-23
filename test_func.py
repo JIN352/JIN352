@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
 class oho_test_func():
     # ohou_test에 사용
@@ -317,13 +317,24 @@ class kur_test_func():
         time.sleep(2)
         scroll_amount = 300  # 픽셀 단위로 스크롤 양을 설정
         self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")  # 상품으로 스크롤 이동
-        child_element = self.driver.find_elements(By.XPATH, f"//*[text()='담기']")[number-1]
+        if number > 4:
+            self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+            self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+        child_element = self.driver.find_elements(By.XPATH, "//*[text()='담기']")[number-1]
         parent_element = child_element.find_element(By.XPATH, './../..')                    #상위 요소로 이동
-        item_number = parent_element.get_attribute('href')
-        item_number = re.sub(r'[^0-9]', '', item_number)
-        item_name = parent_element.find_element(By.XPATH, './div[3]/div').text
+        item_number = parent_element.get_attribute('href')                                  #상품 url 추출
+        item_number = re.sub(r'[^0-9]', '', item_number)                                    #상품번호 추출
+        item_name = parent_element.find_element(By.XPATH, './div[3]/div').text              #상품명 추출
         child_element.click()
         time.sleep(2)
-        self.driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()
+        self.driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  #상품 장바구니 담기
+        #옵션 포함 상품에 옵션 수량 선택
+        try:
+            pop_element = self.driver.find_element(By.ID,'swal2-content')       #알림팝업 노출 확인
+            if pop_element:
+                self.driver.find_element(By.XPATH, "//*[text()='확인']").click()                     #알림 팝업 닫기
+                self.driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()           #옵션 수량 1 올리기
+                self.driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  #상품 장바구니 담기
+        except NoSuchElementException: pass
 
         return item_number, item_name

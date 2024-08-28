@@ -274,39 +274,33 @@ class kur_test_func():
         """
 
         self.create_folder(path)                                                       #이미지 저장 폴더 생성
-        self.driver.find_element(By.CLASS_NAME, 'css-ff2aah.e14oy6dx2').click()                  #장바구니 위치 이동
-        self.driver.find_element(By.CLASS_NAME, 'css-10w9uhr.e1p13h9k0').click()        #쿠폰 띠배너 제거
         self.driver.maximize_window()
-        elements = self.driver.find_elements(By.CLASS_NAME, 'css-8wfj4z.er0tf672')        #상품 위치
-
-        # 상단 배너, 토탈 금액 이미지 저장
-        self.driver.refresh()
-        time.sleep(2)
-        self.driver.find_element(By.ID,'__next').screenshot(path + '\cart.png')
-        self.driver.find_element(By.CLASS_NAME, 'css-1dta0ch.er0tf671').screenshot(path + '\cart_total.png')
-        self.driver.find_element(By.CLASS_NAME, 'css-r7wmjj.e15sbxqa3').screenshot(path + '\cart_bannser.png')
-
-        # 상단 배너 제거
-        element_to_remove = self.driver.find_element(By.CLASS_NAME,"css-r7wmjj.e15sbxqa3")
-        self.driver.execute_script("arguments[0].parentNode.removeChild(arguments[0]);", element_to_remove)
+        elements = self.driver.find_elements(By.CLASS_NAME, 'css-bjn8wh.e17itp850')
 
         # 동일 요소 이미지 후 리스트 추가
         screenshots = []
         for i, element in enumerate(elements):
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
             screenshot = element.screenshot_as_png
             screenshots.append(Image.open(io.BytesIO(screenshot)))
 
-        # 이미지 사이즈 조정
-        combined_image = Image.new('RGB', (max(img.width for img in screenshots), sum(img.height for img in screenshots)))
+            # 이미지 사이즈 조정
+            combined_width = max(img.width for img in screenshots)
+            combined_height = sum(img.height for img in screenshots)
 
-        # 이미지를 합치기
-        y_offset = 0
-        for img in screenshots:
-            combined_image.paste(img, (0, y_offset))
-            y_offset += img.height
+            combined_image = Image.new('RGB', (combined_width, combined_height))
 
-        combined_image.save(path + '\item_list.png')        # 상품별 이미지 저장
+            # 이미지를 합치기
+            y_offset = 0
+            for img in screenshots:
+                combined_image.paste(img, (0, y_offset))
+                y_offset += img.height
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+
+        combined_image.save(path + '\item_list.png')  # 상품별 이미지 저장
+
+        self.driver.find_element(By.CLASS_NAME, 'css-47nnfk.e11sj0mr1').screenshot(path + '\cart_total_0.png')
+        self.driver.find_element(By.CLASS_NAME, 'css-1e06u91.e1g2d0840').screenshot(path + '\cart_total_1.png')
+        self.driver.find_element(By.CLASS_NAME, 'css-1ih0cp7.e6js8xr0').screenshot(path + '\cart_total_2.png')
 
     def get_item(self, number):
         """

@@ -77,3 +77,54 @@ def test_1():
             return True
         finally: test_func.cart_screenshot(folder+'KUR-1')          #장바구니 내부 이미지 저장
     except: return False
+
+def test_2():
+    #찜하기 버튼을 통한 로그인 페이지 이동 확인
+    try:
+        test_func.create_folder('C:/test/KUR-2')
+        f = open("C:/test/kurly_test_result.txt", 'a')
+        f.write('KUR-2:찜하기 버튼을 통한 로그인 페이지 이동 확인\n')
+
+        # 1.마켓컬리 홈페이지 이동
+        url = 'https://www.kurly.com/'
+        driver.get(url)
+        driver.maximize_window()
+        while True:
+            try:
+                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
+            except NoSuchElementException:                               # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
+                break
+
+        # 2.GNB의 신상품 클릭
+        clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[text()='신상품']")))
+        clk_button.click()
+
+        # 3.임의의 상품 페이지로 이동
+        try:
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME,'css-1ao2hqp.e9lsuol7'))).click()
+
+    # 4.찜하기 버튼 클릭
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-18dergt.ei3x04a1'))).click()
+
+    # 5.로그인 필요 팝업 확인
+            time.sleep(2)
+            driver.save_screenshot(folder+'KUR-2/POPUP.png')                #로그인 필요 팝업 이미지 저장
+            driver.find_element(By.XPATH,"//*[text()='확인']").click()
+
+    # 6.로그인 페이지로 이동 확인
+            time.sleep(2)
+            id_element = driver.find_element(By.NAME,'id').get_attribute('placeholder')
+            pw_element = driver.find_element(By.NAME,'password').get_attribute('placeholder')
+            if id_element == '아이디 입력':
+                if pw_element == '비밀번호 입력':
+                    result = ('PASS - 로그인 페이지 노출\n')
+                    f.write(result)
+            else:
+                result = ('FAIL - 로그인 페이지 미노출, 마지막 페이지 확인 필요\n')
+                f.write(result)
+                return False
+            f.close()
+            print('\ntest2 pass')
+            return True
+        finally: driver.save_screenshot(folder+'KUR-2/KUR-2.png')          #로그인 페이지 이미지 저장
+    except: return False

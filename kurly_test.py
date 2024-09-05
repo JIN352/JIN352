@@ -67,10 +67,10 @@ def test_1():
             check_item.sort()
 
             if check_item == item_info :
-                result = ('PASS\n장바구니에 담긴 상품들:\n' + str(check_item) + '\n실제 담은 상품들:\n' + str(item_info))
+                result = ('PASS\n장바구니에 담긴 상품들:\n' + str(check_item) + '\n실제 담은 상품들:\n' + str(item_info)+'\n\n')
                 f.write(result)
             else:
-                result = ('FAIL\n장바구니에 담긴 상품들:\n'+ str(check_item) +'\n실제 담은 상품들:\n'+ str(item_info))
+                result = ('FAIL\n장바구니에 담긴 상품들:\n'+ str(check_item) +'\n실제 담은 상품들:\n'+ str(item_info)+'\n\n')
                 f.write(result)
                 return False
             f.close()
@@ -118,10 +118,10 @@ def test_2():
             pw_element = driver.find_element(By.NAME,'password').get_attribute('placeholder')
             if id_element == '아이디 입력':
                 if pw_element == '비밀번호 입력':
-                    result = ('PASS - 로그인 페이지 노출\n')
+                    result = ('PASS - 로그인 페이지 노출\n\n')
                     f.write(result)
             else:
-                result = ('FAIL - 로그인 페이지 미노출, 마지막 페이지 확인 필요\n')
+                result = ('FAIL - 로그인 페이지 미노출, 마지막 페이지 확인 필요\n\n')
                 f.write(result)
                 return False
             f.close()
@@ -174,10 +174,10 @@ def test_3():
             location_popup = driver.find_element(By.XPATH,"//*[contains(text(), '성남시청')]").text
             print(location_popup)
             if location_popup == location:
-                result = ('PASS - 입력한 배송지로 설정 성공: '+location+'\n')
+                result = ('PASS - 입력한 배송지로 설정 성공: '+location+'\n\n')
                 f.write(result)
             else:
-                result = ('FAIL - 배송지 설정 확인 필요\n')
+                result = ('FAIL - 배송지 설정 확인 필요\n\n')
                 f.write(result)
                 return False
             f.close()

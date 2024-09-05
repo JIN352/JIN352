@@ -341,10 +341,12 @@ class kur_test_func():
         :return: 없음
         """
         time.sleep(2)
+        #프레임 변경
         frame = self.driver.find_elements(By.TAG_NAME, 'iframe')[0]
         self.driver.switch_to.frame(frame)
         frame = self.driver.find_elements(By.TAG_NAME, 'iframe')[0]
         self.driver.switch_to.frame(frame)
+        #검색할 주소지 입력
         location = self.driver.find_element(By.ID, 'region_name')
         self.driver.execute_script(f"arguments[0].value = '{such}';", location)
         location.send_keys(Keys.ENTER)

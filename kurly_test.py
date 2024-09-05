@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 
 options = webdriver.ChromeOptions()
 mobile_emulation = {"deviceName": "iPhone XR"}
@@ -66,17 +67,19 @@ def test_1():
             check_item.sort()
 
             if check_item == item_info :
-                result = ('PASS\n장바구니에 담긴 상품들:\n' + str(check_item) + '\n실제 담은 상품들:\n' + str(item_info))
+                result = ('PASS\n장바구니에 담긴 상품들:\n' + str(check_item) + '\n실제 담은 상품들:\n' + str(item_info)+'\n\n')
                 f.write(result)
             else:
-                result = ('FAIL\n장바구니에 담긴 상품들:\n'+ str(check_item) +'\n실제 담은 상품들:\n'+ str(item_info))
+                result = ('FAIL\n장바구니에 담긴 상품들:\n'+ str(check_item) +'\n실제 담은 상품들:\n'+ str(item_info)+'\n\n')
                 f.write(result)
                 return False
             f.close()
             print('\ntest1 pass')
             return True
         finally: test_func.cart_screenshot(folder+'KUR-1')          #장바구니 내부 이미지 저장
-    except: return False
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False
 
 def test_2():
     #찜하기 버튼을 통한 로그인 페이지 이동 확인
@@ -117,14 +120,73 @@ def test_2():
             pw_element = driver.find_element(By.NAME,'password').get_attribute('placeholder')
             if id_element == '아이디 입력':
                 if pw_element == '비밀번호 입력':
-                    result = ('PASS - 로그인 페이지 노출\n')
+                    result = ('PASS - 로그인 페이지 노출\n\n')
                     f.write(result)
             else:
-                result = ('FAIL - 로그인 페이지 미노출, 마지막 페이지 확인 필요\n')
+                result = ('FAIL - 로그인 페이지 미노출, 마지막 페이지 확인 필요\n\n')
                 f.write(result)
                 return False
             f.close()
             print('\ntest2 pass')
             return True
         finally: driver.save_screenshot(folder+'KUR-2/KUR-2.png')          #로그인 페이지 이미지 저장
-    except: return False
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False
+
+def test_3():
+    #배송지 설정 확인
+    try:
+        test_func.create_folder('C:/test/KUR-3')
+        f = open("C:/test/kurly_test_result.txt", 'a')
+        f.write('KUR-3:배송지 설정 확인\n')
+
+        # 1.마켓컬리 홈페이지 이동
+        url = 'https://www.kurly.com/'
+        driver.get(url)
+        driver.maximize_window()
+        while True:
+            try:
+                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
+            except NoSuchElementException:                               # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
+                break
+
+        # 2.배송지 등록 버튼 클릭
+        try:
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+
+        # 3.주소지 입력
+            test_func.such_post('성남시청')          #프레임 이동 및 주소검색(검색할 주소 입력)
+
+        # 4.주소지 선택
+            driver.find_elements(By.CLASS_NAME, 'link_post')[2].send_keys(Keys.ENTER)
+
+        # 5.저장 버튼 클릭
+            time.sleep(2)
+            driver.switch_to.default_content()  # 메인프레임으로 이동
+            location = driver.find_element(By.ID,'addressDetail')
+            location.send_keys(Keys.ENTER+'test')                   #나머지 주소 입력
+            location = location.find_element(By.XPATH,'./../../label').text
+            driver.find_element(By.XPATH,"//*[text()='저장']").click()
+            location = location+(' test')       #설정한 주소 값
+
+        # 6.배송지 등록 버튼 클릭
+            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+
+        # 7.등록된 배송지 확인
+            time.sleep(2)
+            location_popup = driver.find_element(By.XPATH,"//*[contains(text(), '성남시청')]").text
+            if location_popup == location:
+                result = ('PASS - 입력한 배송지로 설정 성공: '+location+'\n\n')
+                f.write(result)
+            else:
+                result = ('FAIL - 배송지 설정 확인 필요\n\n')
+                f.write(result)
+                return False
+            f.close()
+            print('\ntest3 pass')
+            return True
+        finally: driver.save_screenshot(folder+'KUR-3/KUR-3.png')          #로그인 페이지 이미지 저장
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False

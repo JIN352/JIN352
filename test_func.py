@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 
 class Oho_test_func():
     # ohou_test에 사용
@@ -332,3 +333,20 @@ class Kur_test_func():
         except NoSuchElementException: pass
 
         return item_number, item_name
+
+    def such_post(self,such):
+        """
+        배송지 검색
+        :param such: 검색할 주소지
+        :return: 없음
+        """
+        time.sleep(2)
+        #프레임 변경
+        frame = self.driver.find_elements(By.TAG_NAME, 'iframe')[0]
+        self.driver.switch_to.frame(frame)
+        frame = self.driver.find_elements(By.TAG_NAME, 'iframe')[0]
+        self.driver.switch_to.frame(frame)
+        #검색할 주소지 입력
+        location = self.driver.find_element(By.ID, 'region_name')
+        self.driver.execute_script(f"arguments[0].value = '{such}';", location)
+        location.send_keys(Keys.ENTER)

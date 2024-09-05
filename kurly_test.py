@@ -77,7 +77,9 @@ def test_1():
             print('\ntest1 pass')
             return True
         finally: test_func.cart_screenshot(folder+'KUR-1')          #장바구니 내부 이미지 저장
-    except: return False
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False
 
 def test_2():
     #찜하기 버튼을 통한 로그인 페이지 이동 확인
@@ -128,7 +130,9 @@ def test_2():
             print('\ntest2 pass')
             return True
         finally: driver.save_screenshot(folder+'KUR-2/KUR-2.png')          #로그인 페이지 이미지 저장
-    except: return False
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False
 
 def test_3():
     #배송지 설정 확인
@@ -161,10 +165,10 @@ def test_3():
             time.sleep(2)
             driver.switch_to.default_content()  # 메인프레임으로 이동
             location = driver.find_element(By.ID,'addressDetail')
-            location.send_keys(Keys.ENTER+'test')
+            location.send_keys(Keys.ENTER+'test')                   #나머지 주소 입력
             location = location.find_element(By.XPATH,'./../../label').text
             driver.find_element(By.XPATH,"//*[text()='저장']").click()
-            location = location+(' test')
+            location = location+(' test')       #설정한 주소 값
 
         # 6.배송지 등록 버튼 클릭
             WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
@@ -172,7 +176,6 @@ def test_3():
         # 7.등록된 배송지 확인
             time.sleep(2)
             location_popup = driver.find_element(By.XPATH,"//*[contains(text(), '성남시청')]").text
-            print(location_popup)
             if location_popup == location:
                 result = ('PASS - 입력한 배송지로 설정 성공: '+location+'\n\n')
                 f.write(result)
@@ -184,4 +187,6 @@ def test_3():
             print('\ntest3 pass')
             return True
         finally: driver.save_screenshot(folder+'KUR-3/KUR-3.png')          #로그인 페이지 이미지 저장
-    except: return False
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False

@@ -252,3 +252,62 @@ def test_4():
     except Exception as e:
         print(f"Error occurred: {e}")
         return False
+
+def test_5():
+    #품절/구매불가 상품 노출 확인
+    try:
+        test_func.create_folder('C:/test/KUR-5')
+        f = open("C:/test/kurly_test_result.txt", 'a')
+        f.write('KUR-5: 품절/구매불가 상품 노출 확인\n')
+
+        # 1.마켓컬리 홈페이지 이동
+        driver.delete_all_cookies()
+        url = 'https://www.kurly.com/'
+        driver.get(url)
+        driver.maximize_window()
+        while True:
+            try:
+                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
+            except NoSuchElementException:  # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
+                break
+
+        # 2.GNB의 베스트 클릭
+        clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[text()='베스트']")))
+        clk_button.click()
+
+        # 3.멤버스 상품 상품페이지로 이동
+        item = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[text()='멤버스특가']")))
+        item.find_element(By.XPATH,'./../../../../../..').send_keys(Keys.ENTER)
+
+        # 4.상품 장바구니에 담기
+        item_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME,'css-fdq4og.erppsks0'))).text
+        driver.find_element(By.XPATH,"//*[text()='구매하기']").click()
+        time.sleep(2)
+        driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()  # 옵션 수량 1 올리기
+        driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  # 상품 장바구니 담기
+
+        # 5.장바구니 페이지로 이동
+        driver.find_element(By.XPATH, "//*[text()='장바구니 확인']").click()
+
+        # 6.품절/구매불가 항목에 상품 노출 확인
+        item_list = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID,'unavailableOrders')))
+        item_list = item_list.find_element(By.XPATH,'./../div[2]/div/div/div/a')
+        try:
+            check_name = item_list.find_element(By.XPATH, './p[2]').text  # 장바구니에 담긴 품절/구매불가 상품명 추출
+        except:
+            check_name = item_list.find_element(By.XPATH, './p').text
+
+        if check_name == item_name:                                     #장바구니에 담긴 품절/구매불가 상품과 실제 담은 상품 상품명 비교
+            result = ('PASS - 품절 상품 분리 노출된다.\n장바구니에 담긴 상품:\n' + str(check_name) + '\n실제 담은 상품:\n' + str(item_name) + '\n\n')
+            f.write(result)
+        else:
+            result = ('FAIL - 품절 상품 확인 필요\n장바구니에 담긴 상품:\n' + str(check_name) + '\n실제 담은 상품:\n' + str(item_name) + '\n\n')
+            f.write(result)
+            return False
+        f.close()
+        print('\ntest5 pass')
+        return True
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False
+    finally: driver.save_screenshot(folder +'KUR-5/KUR-5.png')       #이미지 저장

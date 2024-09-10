@@ -2,7 +2,7 @@ import random
 import re
 import time
 
-from test_func import kur_test_func
+from test_func import Kur_test_func
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,7 +14,7 @@ options = webdriver.ChromeOptions()
 mobile_emulation = {"deviceName": "iPhone XR"}
 options.add_experimental_option("mobileEmulation", mobile_emulation)
 driver = webdriver.Chrome(options=options)
-test_func = kur_test_func(driver)
+test_func = Kur_test_func(driver)
 test_func.create_folder('C:/test')
 f = open("C:/test/kurly_test_result.txt", 'w')
 f.close()

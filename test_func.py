@@ -12,7 +12,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
-class oho_test_func():
+class Oho_test_func():
     # ohou_test에 사용
     # Initializer
     def __init__(self, driver):     # 초기화
@@ -249,7 +249,7 @@ class oho_test_func():
         element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
         return element
 
-class kur_test_func():
+class Kur_test_func():
     # kurly_test에 사용
     # Initializer
     def __init__(self, driver):     # 초기화

@@ -2,7 +2,7 @@ import random
 import re
 import time
 
-from test_func import Test_func
+from test_func import Oho_test_func
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,7 +12,7 @@ from selenium.common.exceptions import TimeoutException
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options)
-test_func = Test_func(driver)
+test_func = Oho_test_func(driver)
 test_func.create_folder('C:/test')
 f = open("C:/test/ohou_test_result.txt", 'w')
 f.close()

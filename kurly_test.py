@@ -190,3 +190,65 @@ def test_3():
     except Exception as e:
         print(f"Error occurred: {e}")
         return False
+
+def test_4():
+    #주소지에 따른 샛별, 하루 배송 노출 확인
+    try:
+        test_func.create_folder('C:/test/KUR-4')
+        f = open("C:/test/kurly_test_result.txt", 'a')
+        f.write('KUR-4: 주소지에 따른 샛별, 하루 배송 노출 확인\n')
+        such_location = {'성남시청':'샛별배송','광주광역시청':'하루배송'}
+
+        # 1.마켓컬리 홈페이지 이동
+        driver.delete_all_cookies()
+        url = 'https://www.kurly.com/'
+        driver.get(url)
+        driver.maximize_window()
+        while True:
+            try:
+                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
+            except NoSuchElementException:  # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
+                break
+        # 2.배송지 등록 버튼 클릭
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+
+        for i in such_location:             #샛별배송, 하루배송 각각 확인을 위한 반복
+            try:
+                # 3.주소지 입력
+                test_func.such_post(i)  # 프레임 이동 및 주소검색(검색할 주소 입력)
+
+                # 4.주소지 선택
+                driver.find_elements(By.CLASS_NAME, 'link_post')[2].send_keys(Keys.ENTER)
+
+                # 5.노출되는 배송 타입 확인
+                time.sleep(2)
+                driver.switch_to.default_content()  # 메인프레임으로 이동
+                driver.find_element(By.ID, 'addressDetail').send_keys(Keys.ENTER + 'test')  # 나머지 주소 입력
+                driver.save_screenshot(folder + 'KUR-4/' + such_location[i] + '_' + i + '.png')  # 배송지 이미지 저장
+
+                # 6.저장 버튼 클릭
+                driver.find_element(By.XPATH, "//*[text()='저장']").click()
+
+                # 7.배송지 등록 버튼 클릭
+                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+
+                # 8.노출되는 배송 타입 확인
+                time.sleep(2)
+                location_popup = driver.find_element(By.CLASS_NAME, 'css-1wim3xg.e1kt0drt1')
+                location_popup = location_popup.find_element(By.XPATH,'./../strong').text       #설정된 배송지에서 배송 타입 확인
+                if such_location[i] == location_popup:
+                    result = ('[PASS '+such_location[i]+'_'+i+']\n\n')
+                    f.write(result)
+                else:
+                    result = ('[FAIL '+such_location[i]+'_'+i+']\n\n')
+                    f.write(result)
+                    return False
+            finally:
+                driver.save_screenshot(folder + 'KUR-4/KUR-4' + such_location[i] + '_' + i + '.png')  # 이미지 저장
+                driver.find_element(By.XPATH,"//*[text()='배송지 변경']").click()
+        f.close()
+        print('\ntest4 pass')
+        return True
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return False

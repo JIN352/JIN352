@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 
-class test_func():
+class Test_func():
 
     # Initializer
     def __init__(self, driver):     # 초기화

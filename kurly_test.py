@@ -293,4 +293,7 @@ def test_5():
     except Exception as e:
         print(f"Error occurred: {e}")
         return False
-    finally: driver.save_screenshot(folder +'KUR-5/KUR-5.png')       #이미지 저장
+    finally:
+        driver.find_element(By.XPATH,"//*[contains(text(), '품절/구매불가')]").click()
+        time.sleep(1)
+        driver.save_screenshot(folder + 'KUR-5/KUR-5.png')  # 이미지 저장

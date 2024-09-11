@@ -7,7 +7,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 
 options = webdriver.ChromeOptions()
@@ -32,11 +31,7 @@ def test_1():
         url = 'https://www.kurly.com/'
         driver.get(url)
         driver.maximize_window()
-        while True:
-            try:
-                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
-            except NoSuchElementException:                               # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
-                break
+        test_func.popup_close()         #팝업 닫기
 
         # 2.GNB의 신상품 클릭
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[text()='신상품']")))
@@ -92,11 +87,7 @@ def test_2():
         url = 'https://www.kurly.com/'
         driver.get(url)
         driver.maximize_window()
-        while True:
-            try:
-                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
-            except NoSuchElementException:                               # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
-                break
+        test_func.popup_close()         #팝업 닫기
 
         # 2.GNB의 신상품 클릭
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[text()='신상품']")))
@@ -145,11 +136,7 @@ def test_3():
         url = 'https://www.kurly.com/'
         driver.get(url)
         driver.maximize_window()
-        while True:
-            try:
-                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
-            except NoSuchElementException:                               # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
-                break
+        test_func.popup_close()         #팝업 닫기
 
         # 2.배송지 등록 버튼 클릭
         try:
@@ -171,7 +158,9 @@ def test_3():
             location = location+(' test')       #설정한 주소 값
 
         # 6.배송지 등록 버튼 클릭
-            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+            time.sleep(1)
+            test_func.popup_close()  # 팝업 닫기
+            driver.find_element(By.CLASS_NAME,'css-x4ul3l.eue6tj11').click()
 
         # 7.등록된 배송지 확인
             time.sleep(2)
@@ -204,11 +193,7 @@ def test_4():
         url = 'https://www.kurly.com/'
         driver.get(url)
         driver.maximize_window()
-        while True:
-            try:
-                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
-            except NoSuchElementException:  # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
-                break
+        test_func.popup_close()         #팝업 닫기
         # 2.배송지 등록 버튼 클릭
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
 
@@ -230,7 +215,9 @@ def test_4():
                 driver.find_element(By.XPATH, "//*[text()='저장']").click()
 
                 # 7.배송지 등록 버튼 클릭
-                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-x4ul3l.eue6tj11'))).click()
+                time.sleep(1)
+                test_func.popup_close()  # 팝업 닫기
+                driver.find_element(By.CLASS_NAME,'css-x4ul3l.eue6tj11').click()
 
                 # 8.노출되는 배송 타입 확인
                 time.sleep(2)
@@ -265,11 +252,7 @@ def test_5():
         url = 'https://www.kurly.com/'
         driver.get(url)
         driver.maximize_window()
-        while True:
-            try:
-                driver.find_element(By.XPATH, "//*[text()='닫기']").click()
-            except NoSuchElementException:  # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
-                break
+        test_func.popup_close()         #팝업 닫기
 
         # 2.GNB의 베스트 클릭
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[text()='베스트']")))

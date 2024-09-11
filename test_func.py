@@ -350,3 +350,14 @@ class Kur_test_func():
         location = self.driver.find_element(By.ID, 'region_name')
         self.driver.execute_script(f"arguments[0].value = '{such}';", location)
         location.send_keys(Keys.ENTER)
+
+    def popup_close(self):
+        """
+        메인 화면에 노출되는 팝업 닫기
+        :return: 없음
+        """
+        while True:
+            try:
+                self.driver.find_element(By.XPATH, "//*[text()='닫기']").click()
+            except NoSuchElementException:  # "닫기" 문구를 포함한 요소가 더 이상 없을 때 루프 종료
+                break

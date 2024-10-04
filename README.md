@@ -11,6 +11,7 @@
   <a href="https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4"><img src="http://img.shields.io/badge/Notion-111111?style=flat-square&logo=Notion&link=https://www.notion.so/e10261502958481483e27161106e84ee?pvs=4">
 * 실행시 터미널에 아래의 문구 입력해주세요<br/>
   pytest 파일명.py -> pytest test_main.py
+* APP 자동화 테스트 파일은 JIN352_A Repository에 있습니다. Repository-> <a href="https://github.com/JIN352/JIN352_A"><img src="http://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white">
 
 
 <h3> ⚒️TECH STACK⚒️</h3>

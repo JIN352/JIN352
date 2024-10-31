@@ -185,7 +185,7 @@ def test_3():
             item_index.click()
         element = driver.find_element(By.XPATH, '//button[contains(text(),"삭제")]')          #선택삭제 버튼 클릭
         driver.execute_script("arguments[0].click();", element)
-        element = driver.find_element(By.CLASS_NAME, 'css-1blxoen')
+        element = driver.find_element(By.CLASS_NAME, 'css-z4mv81')
         element.screenshot(folder + 'OHO-3_before/del.png')  # 팝업 이미지 저장
         clk_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'css-9y0i8x')))
         clk_button.click()                                                                     #팝업의 삭제 버튼 클릭

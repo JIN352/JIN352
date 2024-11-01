@@ -52,8 +52,8 @@ def test_1():
 
     # 5.상품명 확인
             for number in range(1, count + 1):
-                loc_item = driver.find_elements(By.CLASS_NAME, 'css-1bti31.ersep5u0')[number-1]      #장바구니에 담긴 상품 확인
-                check_number = loc_item.get_attribute('href')                                       #상품 url 추출
+                loc_item = driver.find_elements(By.CLASS_NAME, 'css-1i5eqwb.ersep5u0')[number-1]      #장바구니에 담긴 상품 확인
+                check_number = loc_item.find_element(By.XPATH,'./..').get_attribute('href')           #상품 url 추출
                 check_number = re.sub(r'[^0-9]', '', check_number)
                 try: check_name = loc_item.find_element(By.XPATH,'./p[2]').text                     #상품명 추출
                 except: check_name = loc_item.find_element(By.XPATH,'./p').text
@@ -274,7 +274,7 @@ def test_5():
 
         # 6.품절/구매불가 항목에 상품 노출 확인
         item_list = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID,'unavailableOrders')))
-        item_list = item_list.find_element(By.XPATH,'./../div[2]/div/div/div/a')
+        item_list = item_list.find_element(By.XPATH,'./../div[2]/div/div/div/a/div')
         try:
             check_name = item_list.find_element(By.XPATH, './p[2]').text  # 장바구니에 담긴 품절/구매불가 상품명 추출
         except:

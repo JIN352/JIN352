@@ -298,9 +298,9 @@ class Kur_test_func():
 
         combined_image.save(path + '\item_list.png')  # 상품별 이미지 저장
 
-        self.driver.find_element(By.CLASS_NAME, 'css-47nnfk.e11sj0mr1').screenshot(path + '\cart_total_0.png')
-        self.driver.find_element(By.CLASS_NAME, 'css-1e06u91.e1g2d0840').screenshot(path + '\cart_total_1.png')
-        self.driver.find_element(By.CLASS_NAME, 'css-1ih0cp7.e6js8xr0').screenshot(path + '\cart_total_2.png')
+        self.driver.find_element(By.CLASS_NAME, 'css-47nnfk.e11sj0mr1').screenshot(path + '\cart_total_0.png')      #총결제금액 스크린샷
+        self.driver.find_element(By.CLASS_NAME, 'css-jh467s.e1g2d0840').screenshot(path + '\cart_total_1.png')      #총결제금액상세 스크린샷
+        self.driver.find_element(By.CLASS_NAME, 'css-1ih0cp7.e6js8xr0').screenshot(path + '\cart_total_2.png')      #로그인버튼 스크린샷
 
     def get_item(self, number):
         """
@@ -325,9 +325,9 @@ class Kur_test_func():
         #옵션 포함 상품에 옵션 수량 선택
         try:
             pop_element = self.driver.find_element(By.ID,'swal2-content')       #알림팝업 노출 확인
-            if pop_element:
-                self.driver.find_element(By.XPATH, "//*[text()='확인']").click()                     #알림 팝업 닫기
-                self.driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()           #옵션 수량 1 올리기
+            while pop_element:
+                self.driver.find_element(By.XPATH, "//*[text()='확인']").click()                    #알림 팝업 닫기
+                self.driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()          #옵션 수량 1 올리기
                 self.driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  #상품 장바구니 담기
         except NoSuchElementException: pass
 

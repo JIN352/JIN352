@@ -43,7 +43,6 @@ def test_1():
             for number in range(1, count + 1):
                 item = test_func.get_item(number) # 장바구니에 상품 담기
                 item_info.append(item)
-                driver.find_element(By.XPATH, "//*[text()='계속 쇼핑하기']").click()
                 driver.refresh()
 
     # 4.장바구니 페이지로 이동
@@ -74,6 +73,7 @@ def test_1():
         finally: test_func.cart_screenshot(folder+'KUR-1')          #장바구니 내부 이미지 저장
     except Exception as e:
         print(f"Error occurred: {e}")
+        print(item_info)                #실제 담은 상품들
         return False
 
 def test_2():
@@ -270,7 +270,8 @@ def test_5():
         driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  # 상품 장바구니 담기
 
         # 5.장바구니 페이지로 이동
-        driver.find_element(By.XPATH, "//*[text()='장바구니 확인']").click()
+        time.sleep(2)
+        driver.find_element(By.XPATH, "//*[text()='바로가기']").click()
 
         # 6.품절/구매불가 항목에 상품 노출 확인
         item_list = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID,'unavailableOrders')))
@@ -283,17 +284,20 @@ def test_5():
         if check_name == item_name:                                     #장바구니에 담긴 품절/구매불가 상품과 실제 담은 상품 상품명 비교
             result = ('PASS - 품절 상품 분리 노출된다.\n장바구니에 담긴 상품:\n' + str(check_name) + '\n실제 담은 상품:\n' + str(item_name) + '\n\n')
             f.write(result)
+            driver.find_element(By.XPATH, "//*[contains(text(), '품절/구매불가')]").click()
+            time.sleep(1)
+            driver.save_screenshot(folder + 'KUR-5/KUR-5.png')  # 이미지 저장
         else:
             result = ('FAIL - 품절 상품 확인 필요\n장바구니에 담긴 상품:\n' + str(check_name) + '\n실제 담은 상품:\n' + str(item_name) + '\n\n')
             f.write(result)
+            driver.find_element(By.XPATH, "//*[contains(text(), '품절/구매불가')]").click()
+            time.sleep(1)
+            driver.save_screenshot(folder + 'KUR-5/KUR-5.png')  # 이미지 저장
             return False
         f.close()
         print('\ntest5 pass')
         return True
+
     except Exception as e:
         print(f"Error occurred: {e}")
         return False
-    finally:
-        driver.find_element(By.XPATH,"//*[contains(text(), '품절/구매불가')]").click()
-        time.sleep(1)
-        driver.save_screenshot(folder + 'KUR-5/KUR-5.png')  # 이미지 저장

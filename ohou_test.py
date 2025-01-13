@@ -50,7 +50,7 @@ def test_1():
 
                 # 5.상품명 확인
                 driver.implicitly_wait(3)
-                xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
+                xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[1]/div/ul/li/article/ul/li/article/ul/li/article/a/div[2]/h1'
                 element = driver.find_element(By.XPATH, xpath).text
 
                 if element == itemname:         #실제 상품 명칭과 장바구니내 노출되는 상품 명칭 비교

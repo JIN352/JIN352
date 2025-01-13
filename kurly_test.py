@@ -43,7 +43,6 @@ def test_1():
             for number in range(1, count + 1):
                 item = test_func.get_item(number) # 장바구니에 상품 담기
                 item_info.append(item)
-                driver.find_element(By.XPATH, "//*[text()='계속 쇼핑하기']").click()
                 driver.refresh()
 
     # 4.장바구니 페이지로 이동

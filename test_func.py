@@ -76,7 +76,7 @@ class Oho_test_func():
         :return: 없음
         """
         #장바구니 버튼 클릭
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
+        xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/div/button[1]'
         self.driver.find_element(By.XPATH, xpath).click()
 
         # 옵션 선택
@@ -84,7 +84,7 @@ class Oho_test_func():
             WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 1번 필수 옵션 선택
             alert = self.driver.switch_to.alert
             alert.accept()
-            select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
+            select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
             element = self.driver.find_element(By.XPATH, select_xpath)
             select = Select(element)            # Select 객체 생성
             options = select.options            # 모든 옵션 가져오기
@@ -98,7 +98,7 @@ class Oho_test_func():
             try:
                 WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 2번 필수 옵션 선택
                 alert.accept()
-                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
+                select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = self.driver.find_element(By.XPATH, select_xpath)
                 select = Select(element)  # Select 객체 생성
                 options = select.options  # 모든 옵션 가져오기
@@ -112,7 +112,7 @@ class Oho_test_func():
                 try:
                     WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 3번 필수 옵션 선택
                     alert.accept()
-                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                    select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = self.driver.find_element(By.XPATH, select_xpath)
                     select = Select(element)  # Select 객체 생성
                     options = select.options  # 모든 옵션 가져오기
@@ -155,7 +155,7 @@ class Oho_test_func():
         #장바구니 버튼 클릭
         element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
         item_cost = element_s.text
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/div/button[1]'
+        xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/div/button[1]'
         self.driver.find_element(By.XPATH, xpath).click()
 
         # 옵션 선택
@@ -163,7 +163,7 @@ class Oho_test_func():
             WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 1번 필수 옵션 선택
             alert = self.driver.switch_to.alert
             alert.accept()
-            select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
+            select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[1]/select'
             element = self.driver.find_element(By.XPATH, select_xpath)
             Select(element).select_by_value('1')
             element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
@@ -173,7 +173,7 @@ class Oho_test_func():
             try:
                 WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 2번 필수 옵션 선택
                 alert.accept()
-                select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
+                select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[2]/select'
                 element = self.driver.find_element(By.XPATH, select_xpath)
                 Select(element).select_by_value('1')
                 element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
@@ -183,7 +183,7 @@ class Oho_test_func():
                 try:
                     WebDriverWait(self.driver, 3).until(EC.alert_is_present())  # 3번 필수 옵션 선택
                     alert.accept()
-                    select_xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
+                    select_xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div[2]/section/div/div/div[3]/select'
                     element = self.driver.find_element(By.XPATH, select_xpath)
                     Select(element).select_by_value('1')
                     element_s = self.driver.find_element(By.XPATH, '//span[contains(text(),"주문금액")]/../span[2]')
@@ -222,13 +222,12 @@ class Oho_test_func():
         :return: 상품명
         """
 
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/div/span'
-        itemname = self.driver.find_element(By.XPATH, xpath).text
-        xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div[1]/h1/p/a'
-        element = self.driver.find_element(By.XPATH, xpath).text
-        baner = '[' + element + '] '
-        itemname = baner + itemname  # 상품 이름 추출
-
+        class_name = 'production-selling-header__title__name'
+        item_name = self.driver.find_element(By.CLASS_NAME, class_name).text
+        class_name = 'production-selling-header__title__brand'
+        baner_name = self.driver.find_element(By.CLASS_NAME, class_name).text
+        baner = '[' + baner_name + '] '
+        itemname = baner + item_name  # 상품 이름 추출
         return itemname
 
     def get_link(self, number):
@@ -237,11 +236,9 @@ class Oho_test_func():
         :param number: 장바구니에 담을 상품 갯수
         :return: 상품링크
         """
-        element = self.driver.find_element(By.XPATH, '//*[@id="__next"]/div[1]/div/div[2]/div/div[3]/div/div[2]/div/div/div/div/div[1]/div/div[1]/article')
-        item_class = element.get_attribute('class')
-        item_class = item_class.replace(" ", ".")
-        WebDriverWait(self.driver, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, item_class)))
-        scroll_amount = 300  # 픽셀 단위로 스크롤 양을 설정
+
+        item_class = 'css-oe54r4.etj6rb20'                  #상품 Class Name
+        scroll_amount = 600  # 픽셀 단위로 스크롤 양을 설정
         self.driver.execute_script(f"window.scrollBy(0, {scroll_amount});")         #상품으로 스크롤 이동
         time.sleep(3)
 
@@ -249,6 +246,7 @@ class Oho_test_func():
         line_choice = self.driver.find_elements(By.CLASS_NAME, item_class)[number-1]
         element= line_choice.find_element(By.TAG_NAME,'a').get_attribute('href')
         return element
+
 
 class Kur_test_func():
     # kurly_test에 사용

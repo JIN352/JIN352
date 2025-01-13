@@ -50,7 +50,7 @@ def test_1():
 
                 # 5.상품명 확인
                 driver.implicitly_wait(3)
-                xpath = '/html/body/div[1]/div/div/div[2]/div[1]/div/div[1]/div/ul/li[1]/article/ul/li/article/ul/li/article/a/div[2]/h1'
+                xpath = '/html/body/div[1]/div/div/div/div[1]/div/div[1]/div/ul/li/article/ul/li/article/ul/li/article/a/div[2]/h1'
                 element = driver.find_element(By.XPATH, xpath).text
 
                 if element == itemname:         #실제 상품 명칭과 장바구니내 노출되는 상품 명칭 비교
@@ -306,7 +306,7 @@ def test_5():
 
         # 5.상품 구매하기 버튼 클릭
         time.sleep(2)
-        clk_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/div/div/div/button')))
+        clk_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div/div/div[1]/div/div[2]/div/div/div/button')))
         clk_button.click()
 
         # 6.로그인 팝업 확인

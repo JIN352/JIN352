@@ -73,6 +73,7 @@ def test_1():
         finally: test_func.cart_screenshot(folder+'KUR-1')          #장바구니 내부 이미지 저장
     except Exception as e:
         print(f"Error occurred: {e}")
+        print(item_info)                #실제 담은 상품들
         return False
 
 def test_2():

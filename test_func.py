@@ -326,9 +326,9 @@ class Kur_test_func():
         #옵션 포함 상품에 옵션 수량 선택
         try:
             pop_element = self.driver.find_element(By.ID,'swal2-content')       #알림팝업 노출 확인
-            if pop_element:
-                self.driver.find_element(By.XPATH, "//*[text()='확인']").click()                     #알림 팝업 닫기
-                self.driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()           #옵션 수량 1 올리기
+            while pop_element:
+                self.driver.find_element(By.XPATH, "//*[text()='확인']").click()                    #알림 팝업 닫기
+                self.driver.find_element(By.XPATH, "//*[@aria-label='수량올리기']").click()          #옵션 수량 1 올리기
                 self.driver.find_element(By.XPATH, "//*[contains(text(), '장바구니 담기')]").click()  #상품 장바구니 담기
         except NoSuchElementException: pass
 

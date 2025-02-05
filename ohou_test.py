@@ -311,7 +311,7 @@ def test_5():
 
         # 6.로그인 팝업 확인
         driver.switch_to.window(driver.window_handles[1])               #제어 화면 전환
-        element = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-jiuql7.ebon26m8')))
+        element = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'css-fwddxj.ebon26m6')))
         driver.save_screenshot(folder+'OHO-5/pop.png')                  #노출 팝업 이미지 저장
         if element :                                                    #팝업 노출 확인
             f.write('로그인 팝업 노출\n')

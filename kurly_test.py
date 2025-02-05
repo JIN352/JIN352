@@ -47,11 +47,11 @@ def test_1():
 
     # 4.장바구니 페이지로 이동
             driver.find_element(By.CLASS_NAME, 'css-1ukhbex.e10bpect1').click()
-            WebDriverWait(driver, 2).until(EC.presence_of_all_elements_located((By.ID, 'kurlyDelivery')))
+            WebDriverWait(driver, 3).until(EC.presence_of_all_elements_located((By.ID, 'kurlyDelivery')))
 
     # 5.상품명 확인
             for number in range(1, count + 1):
-                loc_item = driver.find_elements(By.CLASS_NAME, 'css-1i5eqwb.ersep5u0')[number-1]      #장바구니에 담긴 상품 확인
+                loc_item = driver.find_elements(By.CLASS_NAME, 'css-v950id.ersep5u0')[number-1]      #장바구니에 담긴 상품 확인
                 check_number = loc_item.find_element(By.XPATH,'./..').get_attribute('href')           #상품 url 추출
                 check_number = re.sub(r'[^0-9]', '', check_number)
                 try: check_name = loc_item.find_element(By.XPATH,'./p[2]').text                     #상품명 추출

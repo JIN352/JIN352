@@ -299,9 +299,9 @@ class Kur_test_func():
 
         combined_image.save(path + '\item_list.png')  # 상품별 이미지 저장
 
-        self.driver.find_element(By.CLASS_NAME, 'css-47nnfk.e11sj0mr1').screenshot(path + '\cart_total_0.png')      #총결제금액 스크린샷
-        self.driver.find_element(By.CLASS_NAME, 'css-jh467s.e1g2d0840').screenshot(path + '\cart_total_1.png')      #총결제금액상세 스크린샷
-        self.driver.find_element(By.CLASS_NAME, 'css-1ih0cp7.e6js8xr0').screenshot(path + '\cart_total_2.png')      #로그인버튼 스크린샷
+        self.driver.find_element(By.CLASS_NAME, 'css-rxh5x4.e11sj0mr1').screenshot(path + '\cart_total_0.png')      #총결제금액 스크린샷
+        self.driver.find_element(By.CLASS_NAME, 'css-1tdk2bm.e1g2d0840').screenshot(path + '\cart_total_1.png')      #총결제금액상세 스크린샷
+        self.driver.find_element(By.CLASS_NAME, 'css-wtbhkb.e6js8xr0').screenshot(path + '\cart_total_2.png')      #로그인버튼 스크린샷
 
     def get_item(self, number):
         """

@@ -8,6 +8,7 @@ selenium = "*"
 pytest = "*"
 pytest-rerunfailures = "*"
 pillow = "*"
+image = "*"
 
 [dev-packages]
 

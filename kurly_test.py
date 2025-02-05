@@ -78,6 +78,7 @@ def test_1():
 
 def test_2():
     #찜하기 버튼을 통한 로그인 페이지 이동 확인
+    driver.execute_script("window.localStorage.clear();")  # 쿠키 삭제
     try:
         test_func.create_folder('C:/test/KUR-2')
         f = open("C:/test/kurly_test_result.txt", 'a')
@@ -127,6 +128,7 @@ def test_2():
 
 def test_3():
     #배송지 설정 확인
+    driver.execute_script("window.localStorage.clear();")  # 쿠키 삭제
     try:
         test_func.create_folder('C:/test/KUR-3')
         f = open("C:/test/kurly_test_result.txt", 'a')
@@ -182,6 +184,7 @@ def test_3():
 
 def test_4():
     #주소지에 따른 샛별, 하루 배송 노출 확인
+    driver.execute_script("window.localStorage.clear();")  # 쿠키 삭제
     try:
         test_func.create_folder('C:/test/KUR-4')
         f = open("C:/test/kurly_test_result.txt", 'a')
@@ -242,6 +245,7 @@ def test_4():
 
 def test_5():
     #품절/구매불가 상품 노출 확인
+    driver.execute_script("window.localStorage.clear();")  # 쿠키 삭제
     try:
         test_func.create_folder('C:/test/KUR-5')
         f = open("C:/test/kurly_test_result.txt", 'a')

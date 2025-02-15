@@ -27,7 +27,7 @@ class Oho_test_func():
         """
 
         self.create_folder(path)                                                       #이미지 저장 폴더 생성
-        self.driver.find_element(By.CLASS_NAME, 'css-giclcf').click()                  #장바구니 위치 이동
+        self.driver.find_element(By.CLASS_NAME, 'css-ym6lm7').click()                  #장바구니 위치 이동
         self.driver.find_element(By.CLASS_NAME, 'css-1rqmgt4.enny2c40').click()        #쿠폰 띠배너 제거
         self.driver.maximize_window()
         elements = self.driver.find_elements(By.CLASS_NAME, 'commerce-cart__content__group-item')        #상품 위치
